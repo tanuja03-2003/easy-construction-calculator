@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculation of Form Work</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+
+<body class="page-calculator concrete-ui">
+
+<!-- ===== TOP BAR ===== -->
+<header class="top-bar">
+  <a class="back-btn" href="../index.html">←</a>
+  <h1>Calculation of Form Work</h1>
+  <div class="top-icon">🧱</div>
+</header>
+
+<main class="main-content">
+
+  <!-- TITLE CARD -->
+  <div class="title-card">
+    <span class="title-icon">🪵</span>
+    <span class="title-text">Form Work</span>
+  </div>
+
+  <!-- DIMENSIONS -->
+  <div class="form-card">
+    <label class="section-label">Dimensions of FormWork :</label>
+
+    <div class="two-col">
+      <div>
+        <label>Length L</label>
+        <div class="input-with-unit">
+          <input type="number" id="length" value="5">
+          <span class="unit-box" id="unitLabel">m</span>
+        </div>
+      </div>
+
+      <div>
+        <label>Width W</label>
+        <div class="input-with-unit">
+          <input type="number" id="width" value="5">
+          <span class="unit-box">m</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- PRICE -->
+  <div class="form-card">
+    <label class="section-label">Form Work Price</label>
+    <div class="input-with-unit">
+      <input type="number" id="price" value="0">
+      <span class="unit-box">per m²</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- BUTTONS -->
+  <div class="action-row">
+    <button class="btn light">📤 Share</button>
+    <button class="btn primary" onclick="calculateFormwork()">🧮 Calculate</button>
+    <button class="btn light" onclick="resetForm()">🔄 Reset</button>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="result-card">
+    <div class="result-header">
+      <span>⬇ Material</span>
+      <span>Quantity</span>
+      <span>Unit</span>
+    </div>
+    <div id="resultRows"></div>
+  </div>
+
+</main>
+
+<!-- UNIT SWITCHER -->
+<div class="unit-switcher">
+  <button onclick="setUnit('m')">meter</button>
+  <button onclick="setUnit('ft')">foot</button>
+  <button onclick="setUnit('yd')">yard</button>
+  <button onclick="setUnit('brass')">brass</button>
+</div>
+
+<script src="formwork.js"></script>
+</body>
+</html>

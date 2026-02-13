@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculation of Steel</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+
+<body class="page-calculator concrete-ui">
+
+<!-- ===== TOP BAR ===== -->
+<header class="top-bar">
+  <a class="back-btn" href="javascript:history.back()">←</a>
+
+
+  <h1>Calculation of Steel</h1>
+  <div class="top-icon">🛠️</div>
+</header>
+
+<main class="main-content">
+
+  <!-- ===== TITLE CARD ===== -->
+  <div class="title-card">
+    <span class="title-icon">🔩</span>
+    <span class="title-text">Reinforcement Steel</span>
+  </div>
+
+  <!-- ===== INPUTS ===== -->
+  <div class="form-card">
+
+    <div class="two-col">
+      <div>
+        <label>Length (L)</label>
+        <div class="input-with-unit">
+          <input type="number" id="length" value="5">
+          <span class="unit-box">m</span>
+        </div>
+      </div>
+
+      <div>
+        <label>Diameter (d)</label>
+        <div class="input-with-unit">
+          <input type="number" id="diameter" value="12">
+          <span class="unit-box">mm</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <label>Price</label>
+        <div class="input-with-unit">
+          <input type="number" id="price" value="0">
+          <span class="unit-box">₹ / kg</span>
+        </div>
+      </div>
+
+      <div>
+        <label>Quantity</label>
+        <input type="number" id="quantity" value="1">
+      </div>
+    </div>
+
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== ACTION BUTTONS ===== -->
+  <div class="action-row">
+    <button class="btn light">📤 Share</button>
+    <button class="btn primary" onclick="calculateSteel()">🧮 Calculate</button>
+    <button class="btn light" onclick="resetSteel()">🔄 Reset</button>
+  </div>
+
+  <!-- ===== RESULTS ===== -->
+  <div class="result-card">
+    <div class="result-header">
+      <span>Material</span>
+      <span>Quantity</span>
+      <span>Unit</span>
+    </div>
+    <div id="resultRows"></div>
+  </div>
+
+</main>
+
+<script src="steel.js"></script>
+</body>
+</html>

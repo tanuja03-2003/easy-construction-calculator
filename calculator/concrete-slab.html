@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Slab Concrete</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+
+<body class="page-calculator concrete-ui">
+
+<!-- ===== TOP BAR ===== -->
+<header class="top-bar">
+  <a class="back-btn" href="concrete.html">←</a>
+  <h1>Calculation of Slab Concrete</h1>
+  <div class="top-icon">🛠️</div>
+</header>
+
+<main class="main-content">
+
+  <!-- ===== TITLE CARD ===== -->
+  <div class="title-card">
+    <span class="title-icon">🟥</span>
+    <span class="title-text">Slab Concrete</span>
+  </div>
+
+  <!-- ===== SLAB INPUTS ===== -->
+  <div class="form-card">
+    <label class="section-label">Slab Dimensions</label>
+
+    <div class="two-col">
+      <div>
+        <label>Length (L)</label>
+        <input type="number" id="length" value="5">
+      </div>
+
+      <div>
+        <label>Width (W)</label>
+        <input type="number" id="width" value="5">
+      </div>
+    </div>
+
+    <div class="input-with-unit" style="margin-top:12px">
+      <input type="number" id="thickness" value="0.15">
+      <span class="unit-box" id="dimUnit">m</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== CONCRETE RATIO ===== -->
+  <div class="form-card">
+    <label class="section-label">Concrete Ratio</label>
+
+    <div class="ratio-grid">
+      <div class="ratio-box">
+        <label>Cement</label>
+        <input type="number" value="1" />
+      </div>
+
+      <div class="ratio-box">
+        <label>Sand</label>
+        <input type="number" value="2" />
+      </div>
+
+      <div class="ratio-box">
+        <label>Aggregate</label>
+        <input type="number" value="4" />
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <label>Dry Volume Factor</label>
+        <input type="number" value="1.54" />
+      </div>
+
+      <div>
+        <label>Water Cement Ratio</label>
+        <input type="number" value="0.5" />
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== ACTION BUTTONS ===== -->
+  <div class="action-row">
+    <button class="btn light">📤 Share</button>
+    <button class="btn primary" onclick="calculateSlab()">🧮 Calculate</button>
+    <button class="btn light" onclick="resetResults()">🔄 Reset</button>
+  </div>
+
+  <!-- ===== RESULTS ===== -->
+  <div class="result-card">
+    <div class="result-header">
+      <span>⬇ Material</span>
+      <span>Quantity</span>
+      <span>Unit</span>
+    </div>
+    <div id="resultRows"></div>
+  </div>
+
+</main>
+
+<div class="unit-switcher">
+  <button onclick="setUnit('m')">meter</button>
+  <button onclick="setUnit('ft')">foot</button>
+  <button onclick="setUnit('yd')">yard</button>
+  <button onclick="setUnit('brass')">brass</button>
+</div>
+
+<script src="./concrete.js"></script>
+
+
+<script>
+  window.onload = function () {
+    calculateSlab();
+  };
+</script>

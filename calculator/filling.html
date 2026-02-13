@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Calculation of Back Filling</title>
+  <link rel="stylesheet" href="../style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+<div class="top-bar">
+  <span class="back-btn" onclick="history.back()">&#8592;</span>
+  <h2>Calculation of Back Filling</h2>
+</div>
+
+<div class="container">
+
+  <div class="title-box">
+    <h3>Back Filling</h3>
+  </div>
+
+
+  <!-- DIMENSIONS -->
+  <h4>Dimensions of Ground :</h4>
+
+  <div class="input-group">
+    <label>Length L</label>
+    <input type="number" id="length" value="5">
+    <span class="unit-box">m</span>
+  </div>
+
+  <div class="input-group">
+    <label>Width W</label>
+    <input type="number" id="width" value="5">
+    <span class="unit-box">m</span>
+  </div>
+
+  <div class="input-group">
+    <label>Depth D</label>
+    <input type="number" id="depth" value="5">
+    <span class="unit-box">m</span>
+  </div>
+
+  <hr>
+
+  <!-- EXCAVATION SECTION -->
+  <h4>Excavation Quantity and Trip Volume :</h4>
+
+  <div class="row-2">
+    <div>
+      <label>1 Trip Volume</label>
+      <input type="number" id="tripVolume" value="50">
+      <span class="unit-box">m&sup3;</span>
+    </div>
+
+    <div>
+      <label>Excavation Price</label>
+      <input type="number" id="price" value="0">
+      <span class="unit-box">&#8377;/m&sup3;</span>
+    </div>
+  </div>
+
+  <div class="input-group full">
+    <label>Quantity</label>
+    <input type="number" id="quantity" value="1">
+  </div>
+
+  <div class="btn-row">
+    <button onclick="calculate()">Calculate</button>
+    <button onclick="resetForm()" class="reset-btn">Reset</button>
+  </div>
+
+  <!-- RESULT TABLE -->
+  <table>
+    <thead>
+    <tr>
+      <th>Material</th>
+      <th>Quantity</th>
+      <th>Unit</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>Volume</td>
+      <td id="resultVolume">0</td>
+      <td id="unitLabel">m³</td>
+    </tr>
+    <tr>
+      <td>Total Trips</td>
+      <td id="resultTrips">0</td>
+      <td>trips</td>
+    </tr>
+    <tr>
+      <td>Total Cost</td>
+      <td id="resultCost">0</td>
+      <td>₹</td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<!-- UNIT SWITCHER -->
+<div class="unit-switcher">
+  <button onclick="changeUnit('meter')">meter</button>
+  <button onclick="changeUnit('foot')">foot</button>
+  <button onclick="changeUnit('yard')">yard</button>
+  <button onclick="changeUnit('brass')">brass</button>
+</div>
+
+<script src="backfilling.js"></script>
+</body>
+</html>

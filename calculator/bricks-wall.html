@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Wall Bricks</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="../style.css" />
+</head>
+
+<body class="page-calculator bricks-ui">
+
+<!-- ===== TOP BAR ===== -->
+<header class="top-bar dark">
+  <a href="bricks.html" class="back-btn">←</a>
+  <h1>Bricks Calculator</h1>
+  <span class="top-icon">🧱</span>
+</header>
+
+<main class="main-content">
+
+  <!-- ===== TITLE CARD ===== -->
+  <div class="title-card dark-outline">
+    <span class="title-icon">🧱</span>
+    <span class="title-text">Wall Bricks</span>
+  </div>
+
+  <!-- ===== WALL DIMENSIONS ===== -->
+  <div class="form-card">
+    <label class="section-label">Volume of Wall :</label>
+
+    <div class="three-col">
+      <div>
+        <label>Width W</label>
+        <input type="number" id="wallW" value="5">
+        <span class="unit dark">m</span>
+      </div>
+
+      <div>
+        <label>Height H</label>
+        <input type="number" id="wallH" value="5">
+        <span class="unit dark">m</span>
+      </div>
+
+      <div>
+        <label>Thickness t</label>
+        <input type="number" id="wallT" value="0.23">
+        <span class="unit dark">m</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== BRICK DIMENSIONS ===== -->
+  <div class="form-card">
+    <label class="section-label">Dimension of Brick :</label>
+
+    <div class="three-col">
+      <div>
+        <label>Length L</label>
+        <input type="number" id="brickL" value="0.19">
+        <span class="unit dark">m</span>
+      </div>
+
+      <div>
+        <label>Width W</label>
+        <input type="number" id="brickW" value="0.09">
+        <span class="unit dark">m</span>
+      </div>
+
+      <div>
+        <label>Height H</label>
+        <input type="number" id="brickH" value="0.09">
+        <span class="unit dark">m</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== MORTAR ===== -->
+  <div class="form-card">
+    <label class="section-label">Mortar Ratio and Quantity :</label>
+
+    <div class="three-col">
+      <div>
+        <label>Cement</label>
+        <input type="number" id="cementRatio" value="1">
+      </div>
+
+      <div>
+        <label>Sand</label>
+        <input type="number" id="sandRatio" value="5">
+      </div>
+
+      <div>
+        <label>Quantity</label>
+        <input type="number" id="qty" value="1">
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== PRICE ===== -->
+  <div class="form-card">
+    <label class="section-label">Deduction Window or Door Area :</label>
+
+    <div class="two-col">
+      <div>
+        <label>Subtract Area</label>
+        <input type="number" id="deductArea" value="0">
+        <span class="unit dark">m²</span>
+      </div>
+
+      <div>
+        <label>Bricks Price</label>
+        <input type="number" id="brickPrice" value="0">
+        <span class="unit dark">₹ / brick</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== ACTIONS ===== -->
+  <div class="action-row">
+    <button class="btn outline">📤 Share</button>
+
+    <button class="btn primary" onclick="calculateWallBricks()">🧮 Calculate</button>
+    <button class="btn outline" onclick="resetWallBricks()">🔄 Reset</button>
+  </div>
+
+  <!-- ===== RESULTS ===== -->
+  <div class="result-card">
+    <div class="result-header dark">
+      <span>⬇ Material</span>
+      <span>Quantity</span>
+      <span>Unit</span>
+    </div>
+    <div id="resultRows"></div>
+  </div>
+
+</main>
+
+<!-- ===== UNIT SWITCHER ===== -->
+<div class="unit-switcher dark">
+  <button onclick="setUnit('m')">meter</button>
+  <button onclick="setUnit('ft')">foot</button>
+  <button onclick="setUnit('yd')">yard</button>
+  <button onclick="setUnit('brass')">brass</button>
+</div>
+
+<script src="brick.js"></script>
+</body>
+</html>

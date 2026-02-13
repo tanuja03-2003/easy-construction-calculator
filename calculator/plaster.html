@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculation of Plaster</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="concrete-ui">
+
+<!-- ===== TOP BAR ===== -->
+<header class="top-bar">
+  <a href="../index.html" class="back-btn">←</a>
+  <h1>Calculation of Plaster</h1>
+  <div class="top-icon">🧱</div>
+</header>
+
+<main class="main-content">
+
+  <!-- TITLE CARD -->
+  <div class="title-card">
+    <span class="title-icon">🧱</span>
+    <span class="title-text">Wall Plaster</span>
+  </div>
+
+  <!-- DIMENSIONS -->
+  <div class="form-card">
+    <label class="section-label">Plaster Dimensions</label>
+
+    <div class="two-col">
+      <div>
+        <label>Length</label>
+        <input type="number" id="length" value="5">
+      </div>
+      <div>
+        <label>Width</label>
+        <input type="number" id="width" value="5">
+      </div>
+    </div>
+
+    <div class="input-with-unit">
+      <input type="number" id="thickness" value="1.5">
+      <span class="unit-box">cm</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- MORTAR -->
+  <div class="form-card">
+    <label class="section-label">Mortar Details</label>
+
+    <div class="two-col">
+      <div>
+        <label>Cement Ratio</label>
+        <input type="number" id="cementRatio" value="1">
+      </div>
+      <div>
+        <label>Sand Ratio</label>
+        <input type="number" id="sandRatio" value="5">
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <label>Dry Volume Factor</label>
+        <input type="number" id="dryFactor" value="1.27">
+      </div>
+      <div>
+        <label>Wastage %</label>
+        <input type="number" id="wastage" value="2">
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <label>Cement Bag (kg)</label>
+        <input type="number" id="bagWeight" value="50">
+      </div>
+      <div>
+        <label>Bag Price ₹</label>
+        <input type="number" id="bagPrice" value="0">
+      </div>
+    </div>
+
+    <div>
+      <label>Plaster Price ₹ per m²</label>
+      <input type="number" id="plasterRate" value="0">
+    </div>
+
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ACTION BUTTONS -->
+  <div class="action-row">
+    <button class="btn light">📤 Share</button>
+    <button class="btn primary" onclick="calculatePlaster()">🧮 Calculate</button>
+    <button class="btn light" onclick="resetPlaster()">🔄 Reset</button>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="result-card">
+    <div class="result-header">
+      <span>Material</span>
+      <span>Quantity</span>
+      <span>Unit</span>
+    </div>
+    <div id="resultRows"></div>
+  </div>
+
+</main>
+
+<!-- UNIT SWITCHER -->
+<div class="unit-switcher">
+  <button onclick="setUnit('m')">meter</button>
+  <button onclick="setUnit('ft')">foot</button>
+  <button onclick="setUnit('yd')">yard</button>
+  <button onclick="setUnit('brass')">brass</button>
+</div>
+
+<script src="plaster.js"></script>
+
+</body>
+</html>

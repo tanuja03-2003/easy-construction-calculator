@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Concrete by Volume</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+
+<body class="page-calculator concrete-ui">
+
+<!-- ===== TOP BAR ===== -->
+<header class="top-bar">
+  <a class="back-btn" href="concrete.html">←</a>
+  <h1>Calculation of Concrete</h1>
+  <div class="top-icon">🛠️</div>
+</header>
+
+<main class="main-content">
+
+  <!-- ===== TITLE CARD ===== -->
+  <div class="title-card">
+    <span class="title-icon">🧊</span>
+    <span class="title-text">Concrete by Volume</span>
+  </div>
+
+  <!-- ===== CONCRETE VOLUME ===== -->
+  <div class="form-card">
+    <label class="section-label">Concrete Volume</label>
+    <div class="input-with-unit">
+      <input type="number" id="volumeInput" value="5" />
+      <span class="unit-box" id="volumeUnit">m³</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== CONCRETE RATIO ===== -->
+  <div class="form-card">
+    <label class="section-label">Concrete Ratio</label>
+
+    <div class="ratio-grid">
+      <div class="ratio-box">
+        <label>Cement</label>
+        <input type="number" value="1" />
+      </div>
+
+      <div class="ratio-box">
+        <label>Sand</label>
+        <input type="number" value="2" />
+      </div>
+
+      <div class="ratio-box">
+        <label>Aggregate</label>
+        <input type="number" value="4" />
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <label>1 Cement Bag</label>
+        <div class="input-with-unit">
+          <input type="number" value="50" />
+          <span class="unit-box">kg</span>
+        </div>
+      </div>
+
+      <div>
+        <label>Concrete Price</label>
+        <div class="input-with-unit">
+          <input type="number" value="0" />
+          <span class="unit-box">₹/m³</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <label>Dry Volume Factor</label>
+        <input type="number" value="1.54" />
+      </div>
+
+      <div>
+        <label>Quantity</label>
+        <input type="number" value="1" />
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div>
+        <label>Cement Bag Price</label>
+        <input type="number" value="0" />
+      </div>
+
+      <div>
+        <label>Water Cement Ratio</label>
+        <input type="number" value="0.5" />
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== ACTION BUTTONS ===== -->
+  <div class="action-row">
+    <button class="btn light">📤 Share</button>
+    <button class="btn primary" onclick="calculateConcreteVolume()">🧮 Calculate</button>
+    <button class="btn light" onclick="resetResults()">🔄 Reset</button>
+  </div>
+
+  <!-- ===== RESULTS TABLE ===== -->
+  <div class="result-card">
+    <div class="result-header">
+      <span>⬇ Material</span>
+      <span>Quantity</span>
+      <span>Unit</span>
+    </div>
+
+    <div id="resultRows">
+      <!-- JS will insert rows here -->
+    </div>
+  </div>
+
+</main>
+
+<!-- ===== UNIT SWITCHER ===== -->
+<div class="unit-switcher">
+  <button onclick="changeUnit('m3')">meter</button>
+  <button onclick="changeUnit('ft3')">foot</button>
+  <button onclick="changeUnit('yd3')">yard</button>
+  <button onclick="changeUnit('brass')">brass</button>
+</div>
+
+<!-- ===== TEMP JS (WILL MOVE TO FILE LATER) ===== -->
+<script>
+  let currentUnit = "m3";
+
+  function calculate() {
+    const volume = Number(document.getElementById("volumeInput").value);
+    if (!volume) return;
+
+    const dryVolume = volume * 1.54;
+    const cement = dryVolume * (1 / 7);
+    const sand = dryVolume * (2 / 7);
+    const aggregate = dryVolume * (4 / 7);
+    const cementBags = (cement * 1440) / 50;
+    const water = cementBags * 25;
+
+    const rows = [
+      ["Volume", volume, unitLabel()],
+      ["Dry Volume", dryVolume, unitLabel()],
+      ["Cement", cement, unitLabel()],
+      ["Sand", sand, unitLabel()],
+      ["Aggregate", aggregate, unitLabel()],
+      ["Water", water, "Liter"],
+      ["Cement Bags", cementBags, "bags"]
+    ];
+
+    const container = document.getElementById("resultRows");
+    container.innerHTML = "";
+
+    rows.forEach(r => {
+      container.innerHTML += `
+        <div class="result-row">
+          <span>${r[0]}</span>
+          <span>${r[1].toFixed(3)}</span>
+          <span>${r[2]}</span>
+        </div>
+      `;
+    });
+  }
+
+  function unitLabel() {
+    if (currentUnit === "m3") return "m³";
+    if (currentUnit === "ft3") return "ft³";
+    if (currentUnit === "yd3") return "yd³";
+    return "brass";
+  }
+
+  function changeUnit(unit) {
+    currentUnit = unit;
+    document.getElementById("volumeUnit").innerText = unitLabel();
+    calculate();
+  }
+
+  function resetResults() {
+    document.getElementById("resultRows").innerHTML = "";
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculation of Tiles</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="dark-theme">
+
+<header class="top-bar dark-header">
+  <a class="back-btn" href="../index.html">&#8592;</a>
+
+  <h1>Calculation of Tiles</h1>
+
+</header>
+
+<main class="main-content">
+
+  <div class="title-card">
+    <span class="title-icon"></span>
+    <span class="title-text">Calculation of Tiles</span>
+  </div>
+
+  <!-- FLOOR DIMENSIONS -->
+  <div class="form-card">
+    <h3>Dimensions of Floor :</h3>
+
+    <div class="grid-2">
+      <div>
+        <label>Length L</label>
+        <div class="input-with-unit">
+          <input type="number" id="floorLength" value="5">
+          <span class="unit-box" id="dimUnit">m</span>
+        </div>
+      </div>
+
+      <div>
+        <label>Width W</label>
+        <div class="input-with-unit">
+          <input type="number" id="floorWidth" value="5">
+          <span class="unit-box">m</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- TILE DIMENSIONS -->
+  <div class="form-card">
+    <h3>Dimensions of Tile :</h3>
+
+    <div class="grid-2">
+      <div>
+        <label>Length L</label>
+        <div class="input-with-unit">
+          <input type="number" id="tileLength" value="60">
+          <span class="unit-box">cm</span>
+        </div>
+      </div>
+
+      <div>
+        <label>Width W</label>
+        <div class="input-with-unit">
+          <input type="number" id="tileWidth" value="60">
+          <span class="unit-box">cm</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- WASTAGE -->
+  <div class="form-card">
+    <h3>Wastage and Quantity :</h3>
+
+    <div class="grid-2">
+      <div>
+        <label>Wastage %</label>
+        <input type="number" id="wastage" value="5">
+      </div>
+
+      <div>
+        <label>Quantity</label>
+        <input type="number" id="quantity" value="1">
+      </div>
+    </div>
+
+    <label style="margin-top:10px;">Tiles Price</label>
+    <div class="input-with-unit">
+      <input type="number" id="tilePrice" value="0">
+      <span class="unit-box">₹ / m²</span>
+    </div>
+
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- BUTTONS -->
+  <div class="action-row">
+    <button class="btn light"> Share</button>
+    <button class="btn primary" onclick="calculateTiles()"> Calculate</button>
+    <button class="btn light" onclick="resetTiles()">Reset</button>
+  </div>
+
+  <!-- RESULT -->
+  <div class="result-card">
+
+    <div class="result-header">
+      <span>⬇ Material</span>
+      <span>Quantity</span>
+      <span>Unit</span>
+    </div>
+
+    <div class="result-row">
+      <span>Floor Area</span>
+      <span id="resArea">0.000</span>
+      <span id="areaUnit">m²</span>
+    </div>
+
+    <div class="result-row">
+      <span>No of Tiles</span>
+      <span id="resTiles">0</span>
+      <span>tiles</span>
+    </div>
+
+    <div class="result-row">
+      <span>Total Cost</span>
+      <span id="resCost">0.00</span>
+      <span>₹</span>
+    </div>
+
+  </div>
+
+</main>
+
+<div class="unit-switcher">
+  <button onclick="setUnit('m')">meter</button>
+  <button onclick="setUnit('ft')">foot</button>
+  <button onclick="setUnit('yd')">yard</button>
+  <button onclick="setUnit('brass')">brass</button>
+</div>
+
+<script src="tiles.js"></script>
+</body>
+</html>

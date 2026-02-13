@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RCC</title>
+
+  <style>
+    /* ---------- RESET ---------- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: #f4f7fb;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* ---------- TOP BAR ---------- */
+    .top-bar {
+      background: linear-gradient(180deg, #0c2d48, #123b63);
+      color: #fff;
+      padding: 14px 18px;
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    /* ---------- TABS ---------- */
+    .tabs {
+      display: flex;
+      gap: 22px;
+      padding: 10px 18px;
+      background: #123b63;
+    }
+
+    .tabs a {
+      color: #cfd8e3;
+      font-size: 13px;
+      padding-bottom: 6px;
+    }
+
+    .tabs a.active {
+      color: #ffb703;
+      border-bottom: 3px solid #ffb703;
+      font-weight: 600;
+    }
+
+    /* ---------- LAYOUT ---------- */
+    .app-layout {
+      display: flex;
+      min-height: calc(100vh - 96px);
+    }
+
+    /* ---------- SIDEBAR ---------- */
+    .sidebar {
+      width: 220px;
+      background: linear-gradient(180deg, #0b2540, #081b30);
+      padding: 18px 0;
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 14px 24px;
+      color: #e2e8f0;
+      font-size: 14px;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background: rgba(255,255,255,0.08);
+    }
+
+    /* ---------- MAIN ---------- */
+    .main-content {
+      flex: 1;
+      padding: 16px;
+    }
+
+    /* ---------- GRID (KEY FIX) ---------- */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);   /* ALWAYS 3 PER ROW */
+      gap: 14px;
+    }
+
+    /* ---------- CARD ---------- */
+    .card {
+  background: #ffffff;
+  border-radius: 16px;
+
+  /* 🔑 KEY CHANGES */
+  min-height: 150px;          /* makes all boxes uniform */
+  padding: 26px 12px;         /* increases vertical space */
+
+  display: flex;              /* center content vertically */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+}
+
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    /* ---------- ICON SIZE FIX ---------- */
+    .icon {
+      font-size: 46px;                         /* BIGGER emoji */
+      line-height: 1;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .card p {
+      font-size: 13px;
+      font-weight: 600;
+      color: #1e3a8a;
+    }
+
+    /* ---------- MOBILE ---------- */
+    @media (max-width: 900px) {
+      .sidebar {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">Easy Construction Calculator</div>
+
+<!-- TABS -->
+<nav class="tabs">
+  <a href="../index.html">QUANTITY</a>
+  <a class="active" href="rcc.html">RCC</a>
+  <a href="area.html">AREA</a>
+  <a href="volume.html">VOLUME</a>
+  <a href="conversion.html">CONVERSION</a>
+</nav>
+
+<!-- LAYOUT -->
+<div class="app-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <a class="active" href="../index.html">📐 Calculator</a>
+    <a href="../mcq/index.html">📘 MCQ</a>
+    <a href="../notes/index.html">📝 Notes</a>
+    <a href="../help/index.html">❓ Help</a>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main-content">
+    <section class="cards-grid">
+
+      <a class="card" href="#">
+        <span class="icon">🧱</span>
+        <p>Simple Slab</p>
+      </a>
+
+      <a class="card" href="#">
+        <span class="icon">📐</span>
+        <p>One Way Slab</p>
+      </a>
+
+      <a class="card" href="#">
+        <span class="icon">📏</span>
+        <p>Two Way Slab</p>
+      </a>
+
+      <a class="card" href="#">
+        <span class="icon">🏗️</span>
+        <p>4 Bar Column</p>
+      </a>
+
+      <a class="card" href="#">
+        <span class="icon">🏢</span>
+        <p>6 Bar Column</p>
+      </a>
+
+      <a class="card" href="#">
+        <span class="icon">⭕</span>
+        <p>Round Column</p>
+      </a>
+
+    </section>
+  </main>
+
+</div>
+
+</body>
+</html>

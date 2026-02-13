@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calculation of Paint</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+
+<body class="calculator-page">
+
+<!-- ===== TOP BAR ===== -->
+<header class="top-bar">
+  <a href="../index.html" class="back-btn">⬅</a>
+  <h1>Calculation of Paint</h1>
+  <span class="top-emoji">🎨</span>
+</header>
+
+<main class="container">
+
+  <!-- TITLE CARD -->
+  <div class="title-card">
+    <span class="big-emoji">🖌️</span>
+    <span>Calculation of Paint</span>
+  </div>
+
+  <!-- DIMENSIONS -->
+  <h3>Dimensions of Wall :</h3>
+
+  <div class="input-row">
+    <label>Length L</label>
+    <div class="input-group">
+      <input type="number" id="length" value="5">
+      <span class="unit-box" id="dimUnit">m</span>
+    </div>
+  </div>
+
+  <div class="input-row">
+    <label>Width W</label>
+    <div class="input-group">
+      <input type="number" id="width" value="5">
+      <span class="unit-box">m</span>
+    </div>
+  </div>
+
+  <div class="input-row">
+    <label>Subtract Area</label>
+    <div class="input-group">
+      <input type="number" id="subtract" value="0">
+      <span class="unit-box" id="areaUnit">m²</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- COATS -->
+  <h3>No of coats & per liter area :</h3>
+
+  <div class="two-col">
+    <div>
+      <label>No. of coats</label>
+      <input type="number" id="coats" value="1">
+    </div>
+
+    <div>
+      <label>Area covered per liter</label>
+      <input type="number" id="coverage" value="50">
+      <small>m² per liter</small>
+    </div>
+  </div>
+
+  <div class="input-row">
+    <label>Paint Price</label>
+    <div class="input-group">
+      <input type="number" id="price" value="0">
+      <span class="unit-box">₹ / liter</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- BUTTONS -->
+  <div class="btn-row">
+    <button class="btn light">📤 Share</button>
+    <button class="btn primary" onclick="calculatePaint()">🧮 Calculate</button>
+    <button class="btn light" onclick="resetPaint()">🔄 Reset</button>
+  </div>
+
+  <!-- RESULT -->
+  <div class="result-card">
+    <div class="result-header">
+      <span>Material</span>
+      <span>Quantity</span>
+      <span>Unit</span>
+    </div>
+
+    <div class="result-row">
+      <span>Area</span>
+      <span id="rArea">0</span>
+      <span id="rAreaUnit">m²</span>
+    </div>
+
+    <div class="result-row">
+      <span>Total Liter</span>
+      <span id="rLiter">0</span>
+      <span>liter</span>
+    </div>
+
+    <div class="result-row">
+      <span>Total Cost</span>
+      <span id="rCost">0</span>
+      <span>₹</span>
+    </div>
+  </div>
+
+</main>
+
+<!-- UNIT SWITCHER -->
+<div class="unit-switcher">
+  <button onclick="setUnit('m')">meter</button>
+  <button onclick="setUnit('ft')">foot</button>
+  <button onclick="setUnit('yd')">yard</button>
+  <button onclick="setUnit('brass')">brass</button>
+</div>
+
+<script src="paint.js"></script>
+
+</body>
+</html>

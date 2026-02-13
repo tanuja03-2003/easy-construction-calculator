@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculation of Bed Excavation</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="top-bar">
+    <a class="back-btn" href="../index.html">←</a>
+    <h1>Calculation of Bed Excavation</h1>
+  </div>
+
+  <div class="card">
+
+    <h3>Dimensions of Ground :</h3>
+
+    <div class="input-group">
+      <label>Length (L)</label>
+      <input type="number" id="length" value="5">
+    </div>
+
+    <div class="input-group">
+      <label>Width (W)</label>
+      <input type="number" id="width" value="5">
+    </div>
+
+    <div class="input-group">
+      <label>Depth (D)</label>
+      <input type="number" id="depth" value="5">
+    </div>
+
+    <hr>
+
+    <h3>Excavation Quantity and Trip Volume :</h3>
+
+    <div class="input-row">
+      <div>
+        <label>1 Trip Volume</label>
+        <input type="number" id="tripVolume" value="50">
+      </div>
+
+      <div>
+        <label>Excavation Price (per m³)</label>
+        <input type="number" id="price" value="0">
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label>Quantity</label>
+      <input type="number" id="quantity" value="1">
+    </div>
+
+    <div class="btn-group">
+      <button onclick="calculate()">Calculate</button>
+      <button onclick="resetForm()">Reset</button>
+    </div>
+
+  </div>
+
+  <div class="result-card">
+
+    <table>
+      <thead>
+      <tr>
+        <th>Material</th>
+        <th>Quantity</th>
+        <th>Unit</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>Volume</td>
+        <td id="volumeResult">0</td>
+        <td id="volumeUnit">m³</td>
+      </tr>
+      <tr>
+        <td>Total Trips</td>
+        <td id="tripResult">0</td>
+        <td>trips</td>
+      </tr>
+      <tr>
+        <td>Total Cost</td>
+        <td id="costResult">0</td>
+        <td>₹</td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</div>
+
+<div class="unit-switcher">
+  <button onclick="setUnit('meter')">meter</button>
+  <button onclick="setUnit('foot')">foot</button>
+  <button onclick="setUnit('yard')">yard</button>
+  <button onclick="setUnit('brass')">brass</button>
+</div>
+
+<script src="excavation.js"></script>
+
+</body>
+</html>

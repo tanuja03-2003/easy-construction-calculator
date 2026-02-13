@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Circle Wall Bricks</title>
+
+  <!-- COMMON CSS -->
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body class="page-calculator">
+
+<!-- ===== TOP BAR ===== -->
+<header class="top-bar dark">
+  <a href="javascript:history.back()" class="back-btn">←</a>
+
+
+  <h1>Bricks Calculator</h1>
+</header>
+
+<main class="main-content">
+
+  <!-- ===== TITLE CARD ===== -->
+  <div class="title-card dark-outline">
+    <span class="title-icon">🧱</span>
+    <span class="title-text">Circle Wall Bricks</span>
+  </div>
+
+  <!-- ===== VOLUME INPUT ===== -->
+  <div class="form-card">
+    <label class="section-label">Volume of Wall</label>
+
+    <div class="two-col">
+      <div>
+        <label>Diameter (d)</label>
+        <input type="number" id="diameter" value="5">
+      </div>
+
+      <div>
+        <label>Height (h)</label>
+        <input type="number" id="height" value="5">
+      </div>
+    </div>
+
+    <div class="input-with-unit">
+      <input type="number" id="thickness" value="0.23">
+      <span class="unit-box dark">m</span>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== BRICK DIMENSIONS ===== -->
+  <div class="form-card">
+    <label class="section-label">Dimension of Brick</label>
+
+    <div class="three-col">
+      <input type="number" id="brickL" value="0.19" placeholder="Length (m)">
+      <input type="number" id="brickW" value="0.09" placeholder="Width (m)">
+      <input type="number" id="brickH" value="0.09" placeholder="Height (m)">
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== MORTAR ===== -->
+  <div class="form-card">
+    <label class="section-label">Mortar Ratio and Quantity</label>
+
+    <div class="three-col">
+      <input type="number" id="cementRatio" value="1" placeholder="Cement">
+      <input type="number" id="sandRatio" value="5" placeholder="Sand">
+      <input type="number" id="quantity" value="1" placeholder="Quantity">
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ===== DEDUCTION ===== -->
+  <div class="form-card">
+    <label class="section-label">Deduction Window / Door Area</label>
+
+    <div class="two-col">
+      <input type="number" id="deductArea" value="0" placeholder="Subtract Area (m²)">
+      <input type="number" id="brickPrice" value="0" placeholder="₹ / brick">
+    </div>
+  </div>
+
+  <!-- ===== ACTION BUTTONS ===== -->
+  <div class="action-row">
+    <button class="btn dark-outline">📤 Share</button>
+    <button class="btn dark" onclick="calculateCircleBricks()">🧮 Calculate</button>
+    <button class="btn dark-outline" onclick="resetResults()">🔄 Reset</button>
+  </div>
+
+  <!-- ===== RESULTS ===== -->
+  <div class="result-card">
+    <div class="result-header dark">
+      <span>Material</span>
+      <span>Quantity</span>
+      <span>Unit</span>
+    </div>
+    <div id="resultRows"></div>
+  </div>
+
+</main>
+
+<!-- ===== UNIT SWITCH ===== -->
+<div class="unit-switcher">
+  <button onclick="setUnit('m')">meter</button>
+  <button onclick="setUnit('ft')">foot</button>
+  <button onclick="setUnit('yd')">yard</button>
+  <button onclick="setUnit('brass')">brass</button>
+</div>
+
+<script src="bricks-circle.js"></script>
+</body>
+</html>

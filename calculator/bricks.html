@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bricks Calculator</title>
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="../style.css" />
+
+  <!-- Page specific styles -->
+  <style>
+    .menu-card {
+      background: #eaf6f2;
+      border-radius: 18px;
+      padding: 18px 20px;
+      margin: 18px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-decoration: none;
+      color: #0b3a3a;
+    }
+
+    .menu-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .menu-icon {
+      font-size: 34px;
+    }
+
+    .menu-text {
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .menu-arrow {
+      font-size: 28px;
+      color: #555;
+    }
+  </style>
+</head>
+
+<body class="page-calculator">
+
+<!-- ===== TOP BAR ===== -->
+<header class="top-bar">
+
+  <a class="back-btn" href="../index.html">←</a>
+  <h1>Bricks Calculator</h1>
+  <div class="top-icon">🧱</div>
+</header>
+
+<main class="main-content">
+
+  <!-- ===== Bricks by Volume ===== -->
+  <a href="bricks-by-volume.html" class="menu-card">
+    <div class="menu-left">
+      <span class="menu-icon">🟥</span>
+
+      <span class="menu-text">Bricks by Volume</span>
+    </div>
+    <span class="menu-arrow">›</span>
+  </a>
+
+  <!-- ===== Wall Bricks ===== -->
+  <a href="bricks-wall.html" class="menu-card">
+    <div class="menu-left">
+      <span class="menu-icon">🧱</span>
+      <span class="menu-text">Wall Bricks</span>
+    </div>
+    <span class="menu-arrow">›</span>
+  </a>
+
+  <!-- ===== Circle Wall Bricks ===== -->
+  <a href="bricks-circle.html" class="menu-card">
+    <div class="menu-left">
+      <span class="menu-icon">🟤</span>
+      <span class="menu-text">Circle Wall Bricks</span>
+    </div>
+    <span class="menu-arrow">›</span>
+  </a>
+
+</main>
+
+</body>
+</html>
