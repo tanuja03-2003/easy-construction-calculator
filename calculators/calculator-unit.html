@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Length Unit Converter</title>
+
+    <style>
+
+        /* ================= GLOBAL RESET ================= */
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:"Segoe UI", sans-serif;
+        }
+
+        html, body{
+            height:100%;
+            width:100%;
+            overflow-x:hidden;
+        }
+
+        /* ================= BACKGROUND ================= */
+        body{
+            background:linear-gradient(135deg,#0b1d33,#123a63);
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            padding:20px;
+            position:relative;
+        }
+
+        /* ================= BACK BUTTON ================= */
+        .back-btn{
+            position:absolute;
+            top:20px;
+            left:20px;
+            width:38px;
+            height:38px;
+            background:#123a63;
+            color:#fff;
+            border-radius:50%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            text-decoration:none;
+            font-size:18px;
+        }
+
+        /* ================= CARD ================= */
+        .converter-card{
+            width:100%;
+            max-width:400px;
+            background:#ffffff;
+            padding:25px;
+            border-radius:18px;
+            box-shadow:0 20px 40px rgba(0,0,0,0.35);
+        }
+
+        /* ================= TITLE ================= */
+        .converter-card h2{
+            text-align:center;
+            color:#0b1d33;
+            margin-bottom:20px;
+            font-size:20px;
+        }
+
+        /* ================= LABELS ================= */
+        label{
+            font-size:14px;
+            font-weight:600;
+            color:#0b1d33;
+        }
+
+        /* ================= INPUT ================= */
+        input{
+            width:100%;
+            padding:10px;
+            margin-top:6px;
+            border-radius:8px;
+            border:2px solid #0b1d33;
+            font-size:14px;
+            margin-bottom:15px;
+        }
+
+        /* ================= SELECT ================= */
+        select{
+            width:100%;
+            padding:8px;
+            border-radius:8px;
+            border:2px solid #0b1d33;
+            font-size:14px;
+            margin-top:6px;
+            margin-bottom:15px;
+        }
+
+        /* ================= BUTTON ================= */
+        .convert-btn{
+            width:100%;
+            padding:10px;
+            background:#0b1d33;
+            color:#fff;
+            border:none;
+            border-radius:10px;
+            font-size:14px;
+            cursor:pointer;
+            margin-top:10px;
+        }
+
+        .convert-btn:hover{
+            background:#123a63;
+        }
+
+        /* ================= RESULT ================= */
+        .result-box{
+            margin-top:15px;
+            background:#0b1d33;
+            color:#fff;
+            padding:10px;
+            border-radius:10px;
+            text-align:center;
+            font-size:14px;
+            font-weight:600;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<a href="../calculators/index.html" class="back-btn">←</a>
+
+<div class="converter-card">
+
+    <h2>Length Unit Converter</h2>
+
+    <label>Input Value</label>
+    <input type="number" id="inputValue" placeholder="Enter value">
+
+    <label>From</label>
+    <select id="fromUnit">
+        <option value="meters">Meters</option>
+        <option value="kilometers">Kilometers</option>
+        <option value="centimeters">Centimeters</option>
+        <option value="millimeters">Millimeters</option>
+        <option value="feet">Feet</option>
+        <option value="inches">Inches</option>
+    </select>
+
+    <label>To</label>
+    <select id="toUnit">
+        <option value="feet">Feet</option>
+        <option value="meters">Meters</option>
+        <option value="kilometers">Kilometers</option>
+        <option value="centimeters">Centimeters</option>
+        <option value="millimeters">Millimeters</option>
+        <option value="inches">Inches</option>
+    </select>
+
+    <button class="convert-btn" onclick="convertLength()">Convert</button>
+
+    <div class="result-box" id="result">
+        Result will appear here
+    </div>
+
+</div>
+
+<script>
+
+    function convertLength(){
+
+        let value = parseFloat(document.getElementById("inputValue").value);
+        let from = document.getElementById("fromUnit").value;
+        let to = document.getElementById("toUnit").value;
+
+        if(isNaN(value)){
+            document.getElementById("result").innerText = "Please enter a valid number";
+            return;
+        }
+
+        // Convert everything to meters first
+        let meters;
+
+        switch(from){
+            case "meters": meters = value; break;
+            case "kilometers": meters = value * 1000; break;
+            case "centimeters": meters = value / 100; break;
+            case "millimeters": meters = value / 1000; break;
+            case "feet": meters = value * 0.3048; break;
+            case "inches": meters = value * 0.0254; break;
+        }
+
+        let result;
+
+        switch(to){
+            case "meters": result = meters; break;
+            case "kilometers": result = meters / 1000; break;
+            case "centimeters": result = meters * 100; break;
+            case "millimeters": result = meters * 1000; break;
+            case "feet": result = meters / 0.3048; break;
+            case "inches": result = meters / 0.0254; break;
+        }
+
+        document.getElementById("result").innerText =
+            value + " " + from + " = " + result.toFixed(4) + " " + to;
+    }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Help</title>
+  <link rel="stylesheet" href="../style.css" />
+
+  <!-- PAGE-SPECIFIC FIX (SAFE) -->
+  <style>
+    /* ===== HELP PAGE LAYOUT FIX ===== */
+
+    /* Desktop */
+    @media (min-width: 768px) {
+      .help-page {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 120px; /* visually centered */
+      }
+
+      .help-card h2 {
+        font-size: 26px;
+      }
+
+      .help-text {
+        font-size: 16px;
+      }
+    }
+
+    /* Mobile */
+    @media (max-width: 767px) {
+      .help-page {
+        display: block;
+        padding-top: 25vh; /* ✅ 25% from top */
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .help-card {
+        margin: 0 auto;
+      }
+
+      .help-card h2 {
+        font-size: 20px;
+      }
+
+      .help-text {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body class="page-help">
+
+<!-- ================= TOP BAR ================= -->
+<header class="top-bar">
+  <h1>Easy Construction Calculator</h1>
+  <div class="top-icon">🛠️</div>
+</header>
+
+<!-- ================= TABS BAR ================= -->
+<nav class="tabs">
+  <a class="tab" href="../index.html">QUANTITY</a>
+  <a class="tab" href="../calculator/rcc.html">RCC</a>
+  <a class="tab" href="../calculator/area.html">AREA</a>
+  <a class="tab" href="../calculator/volume.html">VOLUME</a>
+  <a class="tab" href="../calculator/conversion.html">CONVERSION</a>
+</nav>
+
+<!-- ================= MAIN LAYOUT ================= -->
+<div class="app-layout">
+
+  <!-- ===== SIDEBAR (DESKTOP) ===== -->
+  <aside class="sidebar">
+    <a href="../index.html">📐 Calculator</a>
+    <a href="../mcq/index.html">📘 MCQ</a>
+    <a href="../notes/index.html">📝 Notes</a>
+    <a class="active" href="index.html">❓ Help</a>
+  </aside>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-content help-page">
+
+    <div class="help-card">
+      <h2>Help & Support</h2>
+
+      <p class="help-text">
+        This section helps users understand how to use the application
+        efficiently and resolve common doubts.
+      </p>
+
+      <p class="help-text">
+        For any issues or suggestions, please continue supporting the app.
+      </p>
+
+      <div class="help-actions">
+        <button class="help-btn primary">👍 Continue Support</button>
+        <button class="help-btn secondary">☕ Support Development</button>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- ================= BOTTOM NAV (MOBILE) ================= -->
+<nav class="bottom-nav">
+  <a data-nav="calculator" href="../index.html">
+    📐 <span>Calculator</span>
+  </a>
+  <a data-nav="mcq" href="../mcq/index.html">
+    📘 <span>MCQ</span>
+  </a>
+  <a data-nav="notes" href="../notes/index.html">
+    📝 <span>Notes</span>
+  </a>
+  <a data-nav="help" href="index.html">
+    ❓ <span>Help</span>
+  </a>
+</nav>
+
+</body>
+</html>

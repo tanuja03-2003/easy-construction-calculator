@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculator</title>
+<style>
+    /* ================================= */
+/* FULLSCREEN CALCULATOR FIX */
+/* ================================= */
+
+.calculator-fullscreen {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100vw;
+  background: #1e1e2f; /* or your calculator bg */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Make calculator container full size */
+.calculator-container,
+.calculator,
+.calc-wrapper {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 100vh !important;
+  border-radius: 0 !important;
+}
+
+/* Remove margins */
+.calculator-container {
+  margin: 0 !important;
+  box-shadow: none !important;
+}
+
+/* ===================== */
+/* BACK ARROW STYLE */
+/* ===================== */
+
+.back-arrow {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-size: 26px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    z-index: 1000;
+}
+
+.back-arrow:hover {
+    opacity: 0.7;
+}
+
+    .calculator-page {
+        background: #2b2b3d;
+        padding: 15px;
+        border-radius: 12px;
+        width: 350px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.4);
+    }
+
+    .display {
+        background: #000;
+        border-radius: 10px;
+        padding: 10px;
+        margin-bottom: 12px;
+        height: 220px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    /* History */
+    .history {
+        flex: 1;
+        overflow-y: auto;
+        font-size: 14px;
+        color: #888;
+        text-align: right;
+        padding-right: 5px;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    .history::-webkit-scrollbar { display: none; }
+
+    .history div {
+        padding: 3px 0;
+        cursor: pointer;
+    }
+    .history div:hover { color: #fff; }
+
+    .typing {
+        font-size: 18px;
+        color: #aaa;
+        text-align: right;
+        min-height: 22px;
+    }
+
+    .result {
+        font-size: 32px;
+        font-weight: bold;
+        text-align: right;
+        min-height: 36px;
+    }
+
+    .buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+    }
+
+    button {
+        padding: 15px;
+        font-size: 18px;
+        border: none;
+        border-radius: 8px;
+        background: #444;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    button:hover { background: #666; }
+
+    .operator { background: #ff9500; }
+    .clear { background: #ff3b30; }
+    .equal {
+        background: #34c759;
+        grid-column: span 2;
+    }
+</style>
+</head>
+<body class="calculator-fullscreen">
+<a href="../calculators/index.html" class="back-arrow">←</a>
+
+<div class="d-flex justify-content-center align-items-center my-2">
+<div class="calculator-page">
+
+    <!-- Display -->
+    <div class="display">
+        <div class="history" id="historyList"></div>
+        <div class="typing" id="typing"></div>
+        <div class="result" id="result">0</div>
+    </div>
+
+    <!-- Buttons -->
+    <div class="buttons">
+        <button class="clear" onclick="clearAll()">C</button>
+        <button onclick="backspace()">⌫</button>
+        <button onclick="addChar('%')">%</button>
+        <button class="operator" onclick="addChar('/')">÷</button>
+
+        <button onclick="addChar('7')">7</button>
+        <button onclick="addChar('8')">8</button>
+        <button onclick="addChar('9')">9</button>
+        <button class="operator" onclick="addChar('*')">X</button>
+
+        <button onclick="addChar('4')">4</button>
+        <button onclick="addChar('5')">5</button>
+        <button onclick="addChar('6')">6</button>
+        <button class="operator" onclick="addChar('-')">−</button>
+
+        <button onclick="addChar('1')">1</button>
+        <button onclick="addChar('2')">2</button>
+        <button onclick="addChar('3')">3</button>
+        <button class="operator" onclick="addChar('+')">+</button>
+
+        <button onclick="addChar('0')">0</button>
+        <button onclick="addChar('.')">.</button>
+        <button class="equal" onclick="finalCalculate()">=</button>
+    </div>
+
+</div>
+</div>
+
+
+<script>
+    let expression = "";
+    let lastResult = null;
+    let history = [];
+
+    // Load saved history
+    window.onload = function() {
+        const saved = localStorage.getItem("calc_history");
+        if (saved) {
+            history = JSON.parse(saved);
+            renderHistory();
+        }
+    };
+
+    function saveHistory() {
+        localStorage.setItem("calc_history", JSON.stringify(history));
+    }
+
+    function formatDisplay(exp) {
+        return exp.replace(/\*/g, "X");
+    }
+
+    // Live calculation
+    function liveCalculate() {
+        if (expression.trim() === "") {
+            document.getElementById("result").innerText = "0";
+            return;
+        }
+        try {
+            let liveResult = eval(expression);
+            document.getElementById("result").innerText = liveResult;
+        } catch {
+            document.getElementById("result").innerText = "";
+        }
+    }
+
+    function addChar(char) {
+        if (lastResult !== null && "+-*/%".includes(char)) {
+            expression = lastResult + char;
+            lastResult = null;
+        } else {
+            expression += char;
+        }
+        document.getElementById("typing").innerText = formatDisplay(expression);
+        liveCalculate();
+    }
+
+    function backspace() {
+        expression = expression.slice(0, -1);
+        document.getElementById("typing").innerText = formatDisplay(expression);
+        liveCalculate();
+    }
+
+    function clearAll() {
+        expression = "";
+        lastResult = null;
+        document.getElementById("typing").innerText = "";
+        document.getElementById("result").innerText = "0";
+    }
+
+    // Save to history when "=" pressed
+    function finalCalculate() {
+        if (expression.trim() === "") return;
+        try {
+            let result = eval(expression);
+            document.getElementById("result").innerText = result;
+
+            history.unshift({
+                exp: expression,
+                display: formatDisplay(expression) + " = " + result
+            });
+
+            if (history.length > 100) history.pop();
+
+            renderHistory();
+            saveHistory();
+
+            lastResult = result;
+            expression = "";
+            document.getElementById("typing").innerText = "";
+        } catch {
+            document.getElementById("result").innerText = "Error";
+        }
+    }
+
+    function renderHistory() {
+        document.getElementById("historyList").innerHTML =
+            history.map((item, i) =>
+                `<div onclick="loadFromHistory(${i})">${item.display}</div>`
+            ).join("");
+    }
+
+    // Load expression from history
+    function loadFromHistory(index) {
+        expression = history[index].exp;
+        lastResult = null;
+        document.getElementById("typing").innerText = formatDisplay(expression);
+        liveCalculate();
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scaling Calculator</title>
+
+  <style>
+
+    /* ================= GLOBAL RESET ================= */
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family:"Segoe UI", sans-serif;
+    }
+
+    html, body{
+        height:100%;
+        width:100%;
+        overflow-x:hidden;
+    }
+
+    /* ================= BACKGROUND ================= */
+    body{
+        background:linear-gradient(135deg,#0b1d33,#123a63);
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        padding:20px;
+        position:relative;
+    }
+
+    /* ================= BACK BUTTON ================= */
+    .back-btn{
+        position:absolute;
+        top:20px;
+        left:20px;
+        width:38px;
+        height:38px;
+        background:#123a63;
+        color:#fff;
+        border-radius:50%;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        text-decoration:none;
+        font-size:18px;
+    }
+
+    /* ================= CARD ================= */
+    .scale-card{
+        width:100%;
+        max-width:400px;
+        background:#ffffff;
+        padding:25px;
+        border-radius:18px;
+        box-shadow:0 20px 40px rgba(0,0,0,0.35);
+    }
+
+    /* ================= TITLE ================= */
+    .scale-card h2{
+        text-align:center;
+        color:#0b1d33;
+        margin-bottom:20px;
+        font-size:18px;
+    }
+
+    /* ================= SECTION HEADINGS ================= */
+    .section-title{
+        margin-top:15px;
+        margin-bottom:10px;
+        font-weight:600;
+        color:#0b1d33;
+        font-size:14px;
+    }
+
+    /* ================= INPUT GROUP ================= */
+    .input-row{
+        display:flex;
+        gap:10px;
+        margin-bottom:10px;
+    }
+
+    .input-box{
+        flex:1;
+        min-width:0;
+    }
+
+    .input-box label{
+        font-size:13px;
+        font-weight:600;
+        color:#0b1d33;
+    }
+
+    .input-box input{
+        width:100%;
+        margin-top:5px;
+        padding:8px;
+        border-radius:8px;
+        border:2px solid #0b1d33;
+        font-size:14px;
+    }
+
+    /* ================= BUTTON ================= */
+    .calculate-btn{
+        margin-top:15px;
+        width:100%;
+        padding:10px;
+        background:#0b1d33;
+        color:#fff;
+        border:none;
+        border-radius:10px;
+        font-size:14px;
+        cursor:pointer;
+    }
+
+    .calculate-btn:hover{
+        background:#123a63;
+    }
+
+    /* ================= RESULT ================= */
+    .result-box{
+        margin-top:15px;
+        background:#0b1d33;
+        color:#fff;
+        padding:10px;
+        border-radius:10px;
+        text-align:center;
+        font-size:14px;
+        font-weight:600;
+    }
+
+  </style>
+</head>
+
+<body>
+
+<a href="../calculators/index.html" class="back-btn">←</a>
+
+<div class="scale-card">
+
+  <h2>Scaling Calculator</h2>
+
+  <div class="section-title">Original Size:</div>
+  <div class="input-row">
+    <div class="input-box">
+      <label>Width</label>
+      <input type="number" id="origWidth" placeholder="Width">
+    </div>
+    <div class="input-box">
+      <label>Height</label>
+      <input type="number" id="origHeight" placeholder="Height">
+    </div>
+  </div>
+
+  <div class="section-title">Reproduction Size:</div>
+  <div class="input-row">
+    <div class="input-box">
+      <label>Width</label>
+      <input type="number" id="newWidth" placeholder="Width">
+    </div>
+    <div class="input-box">
+      <label>Height</label>
+      <input type="number" id="newHeight" placeholder="Height">
+    </div>
+  </div>
+
+  <div class="section-title">Percentage of Scaling:</div>
+  <div class="input-row">
+    <div class="input-box">
+      <input type="number" id="percentage" placeholder="Enter %">
+    </div>
+  </div>
+
+  <button class="calculate-btn" onclick="calculateScaling()">Calculate New Dimensions</button>
+
+  <div class="result-box" id="result">
+    Result will appear here
+  </div>
+
+</div>
+
+<script>
+
+  function calculateScaling(){
+
+      let origW = parseFloat(document.getElementById("origWidth").value);
+      let origH = parseFloat(document.getElementById("origHeight").value);
+      let percent = parseFloat(document.getElementById("percentage").value);
+
+      if(isNaN(origW) || isNaN(origH) || isNaN(percent)){
+          document.getElementById("result").innerText = "Please enter all values correctly";
+          return;
+      }
+
+      let scaleFactor = percent / 100;
+
+      let newW = origW * scaleFactor;
+      let newH = origH * scaleFactor;
+
+      document.getElementById("newWidth").value = newW.toFixed(2);
+      document.getElementById("newHeight").value = newH.toFixed(2);
+
+      document.getElementById("result").innerText =
+          "New Size: " + newW.toFixed(2) + " x " + newH.toFixed(2);
+  }
+
+</script>
+
+</body>
+</html>

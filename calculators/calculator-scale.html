@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aspect Ratio Calculator</title>
+
+    <style>
+
+        /* ================= GLOBAL RESET ================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            font-family: "Segoe UI", sans-serif;
+        }
+
+        /* ================= BACKGROUND ================= */
+        body {
+            background: linear-gradient(135deg, #0b1d33, #123a63);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* ================= BACK BUTTON ================= */
+        .back-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 38px;
+            height: 38px;
+            background: #123a63;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        /* ================= CARD ================= */
+        .aspect-card {
+            width: 100%;
+            max-width: 380px;
+            background: #ffffff;
+            padding: 22px;
+            border-radius: 18px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+        }
+
+        /* ================= TITLE ================= */
+        .aspect-card h2 {
+            text-align: center;
+            color: #0b1d33;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        /* ================= RATIO SECTION ================= */
+        .ratio-section {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .ratio-section input {
+            flex: 1;
+            min-width: 0;               /* ⭐ VERY IMPORTANT FIX */
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid #0b1d33;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        /* ================= DIMENSIONS ================= */
+        .dimension-section {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .dimension-box {
+            flex: 1;
+            min-width: 0;               /* ⭐ prevents overflow */
+        }
+
+        .dimension-box label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #0b1d33;
+        }
+
+        .dimension-box input {
+            width: 100%;
+            margin-top: 6px;
+            padding: 8px;
+            border-radius: 8px;
+            border: 2px solid #0b1d33;
+            font-size: 14px;
+        }
+
+        /* ================= BUTTON ================= */
+        .calculate-btn {
+            width: 100%;
+            padding: 10px;
+            background: #0b1d33;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .calculate-btn:hover {
+            background: #123a63;
+        }
+
+        /* ================= RESULT ================= */
+        .result-box {
+            margin-top: 15px;
+            background: #0b1d33;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+    </style>
+</head>
+<body>
+
+<a href="../calculators/index.html" class="back-btn">←</a>
+
+<div class="aspect-card">
+
+    <h2>Aspect Ratio Calculator</h2>
+
+    <div class="ratio-section">
+        <input type="number" id="ratioWidth" value="16">
+        <input type="number" id="ratioHeight" value="9">
+    </div>
+
+    <div class="dimension-section">
+        <div class="dimension-box">
+            <label>Width</label>
+            <input type="number" id="widthInput" placeholder="Enter width">
+        </div>
+
+        <div class="dimension-box">
+            <label>Height</label>
+            <input type="number" id="heightInput" placeholder="Enter height">
+        </div>
+    </div>
+
+    <button class="calculate-btn" onclick="calculateAspect()">Calculate</button>
+
+    <div class="result-box" id="result">
+        Result will appear here
+    </div>
+
+</div>
+
+<script>
+
+    function calculateAspect() {
+
+        let rW = parseFloat(document.getElementById("ratioWidth").value);
+        let rH = parseFloat(document.getElementById("ratioHeight").value);
+        let width = parseFloat(document.getElementById("widthInput").value);
+        let height = parseFloat(document.getElementById("heightInput").value);
+
+        if (isNaN(rW) || isNaN(rH)) {
+            document.getElementById("result").innerText = "Enter valid ratio values";
+            return;
+        }
+
+        if (!isNaN(width) && isNaN(height)) {
+            let calculatedHeight = (width * rH) / rW;
+            document.getElementById("heightInput").value = calculatedHeight.toFixed(2);
+            document.getElementById("result").innerText =
+                "Height calculated: " + calculatedHeight.toFixed(2);
+        }
+        else if (!isNaN(height) && isNaN(width)) {
+            let calculatedWidth = (height * rW) / rH;
+            document.getElementById("widthInput").value = calculatedWidth.toFixed(2);
+            document.getElementById("result").innerText =
+                "Width calculated: " + calculatedWidth.toFixed(2);
+        }
+        else {
+            document.getElementById("result").innerText =
+                "Enter either width or height (not both)";
+        }
+    }
+
+</script>
+
+</body>
+</html>

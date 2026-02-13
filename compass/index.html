@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compass</title>
+
+    <!-- Correct path to main CSS -->
+    <link rel="stylesheet" href="../style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+
+        /* =============================== */
+        /* Compass Page Custom Styling */
+        /* =============================== */
+
+        body {
+          background: linear-gradient(135deg, #0b1d33, #123a63);
+          margin: 0;
+        }
+
+        /* Center content */
+        .compass-wrapper {
+          text-align: center;
+          padding: 30px 20px 100px;
+          color: white;
+        }
+
+        /* Date + Time */
+        .date, .time {
+          font-family: 'Orbitron', monospace;
+          text-transform: uppercase;
+        }
+
+        .date {
+          font-size: 18px;
+          margin-bottom: 5px;
+        }
+
+        .time {
+          font-size: 32px;
+          margin-bottom: 25px;
+        }
+
+        /* Compass Circle */
+        .compass {
+          position: relative;
+          width: 280px;
+          height: 280px;
+          margin: 0 auto 30px;
+        }
+
+        .compass img {
+          width: 100%;
+        }
+
+        /* Arrow */
+        .arrow {
+          position: absolute;
+          width: 0;
+          height: 0;
+          top: -15px;
+          left: 50%;
+          transform: translateX(-50%);
+          border-style: solid;
+          border-width: 25px 15px 0 15px;
+          border-color: red transparent transparent transparent;
+          z-index: 2;
+        }
+
+        /* Buttons */
+        .compass-buttons {
+          display: flex;
+          justify-content: center;
+          gap: 15px;
+        }
+
+        .compass-buttons button {
+          padding: 10px 18px;
+          border-radius: 8px;
+          border: none;
+          font-size: 14px;
+          cursor: pointer;
+        }
+
+        .start-btn {
+          background: #f59e0b;
+          color: blue;
+        }
+
+        .stop-btn {
+          background: #0b1d33;
+          color: blue;
+          border: 1px solid white;
+        }
+/* Date + Time */
+.date {
+  font-size: 18px;
+  margin-bottom: 5px;
+  color: black;   /* Changed to black */
+}
+
+.time {
+  font-size: 32px;
+  margin-bottom: 25px;
+  color: black;   /* Changed to black */
+}
+
+/* Buttons Container */
+.compass-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+/* Dark Blue Buttons */
+.compass-buttons button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  background: #0b1d33;   /* Dark Blue */
+  color: white;
+  transition: 0.3s ease;
+}
+
+.compass-buttons button:hover {
+  background: #123a63;
+}
+
+    </style>
+</head>
+
+<body class="page-calculator">
+
+<!-- ===== TOP BAR ===== -->
+<header class="top-bar">
+    <div class="logo-title">
+        <img src="../images/logo2.jpeg" alt="Logo" class="logo">
+        <h1>Easy Construction Calculator</h1>
+    </div>
+    <div class="top-icon">⚙️</div>
+</header>
+
+<!-- ===== SLIDING TABS ===== -->
+<nav class="tabs">
+    <a class="tab" href="../index.html">QUANTITY</a>
+    <a class="tab" href="../calculators/index.html">CALCULATOR</a>
+    <a class="tab active" href="index.html">COMPASS</a>
+    <a class="tab" href="../calculator/rcc.html">RCC</a>
+    <a class="tab" href="../calculator/area.html">AREA</a>
+    <a class="tab" href="../calculator/volume.html">VOLUME</a>
+    <a class="tab" href="../calculator/conversion.html">CONVERSION</a>
+</nav>
+
+<!-- ===== MAIN CONTENT ===== -->
+<div class="compass-wrapper">
+
+    <div class="date" id="date"></div>
+    <div class="time" id="time"></div>
+
+    <div class="compass">
+        <div class="arrow"></div>
+        <img src="compass.png" id="compassImg">
+    </div>
+
+    <div class="compass-buttons">
+        <button class="start-btn" onclick="startCompass()">Start</button>
+        <button class="stop-btn" onclick="stopCompass()">Stop</button>
+    </div>
+
+</div>
+
+<script>
+
+    /* =============================== */
+    /* CLOCK */
+    /* =============================== */
+
+    function updateClock() {
+        const now = new Date();
+
+        const dateOptions = {
+            weekday: 'long',
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric'
+        };
+
+        document.getElementById("date").innerHTML =
+            now.toLocaleDateString('en-GB', dateOptions);
+
+        const timeOptions = {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: true
+        };
+
+        document.getElementById("time").innerHTML =
+            now.toLocaleTimeString('en-US', timeOptions);
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    /* =============================== */
+    /* COMPASS */
+    /* =============================== */
+
+    let compassImg = document.getElementById("compassImg");
+    let compassActive = false;
+
+    function startCompass() {
+        if (compassActive) return;
+        compassActive = true;
+
+        window.addEventListener("deviceorientationabsolute", rotateCompass, true);
+        window.addEventListener("deviceorientation", rotateCompass, true);
+    }
+
+    function stopCompass() {
+        compassActive = false;
+        window.removeEventListener("deviceorientationabsolute", rotateCompass, true);
+        window.removeEventListener("deviceorientation", rotateCompass, true);
+    }
+
+    function rotateCompass(e) {
+        if (!compassActive) return;
+
+        let heading = e.webkitCompassHeading || Math.abs(e.alpha - 360);
+        compassImg.style.transform = `rotate(${-heading}deg)`;
+    }
+
+</script>
+<nav class="bottom-nav">
+    <a data-nav="calculator" href="../index.html">
+        📐 <span>Calculator</span>
+    </a>
+    <a data-nav="mcq" href="../mcq/index.html">
+        📘 <span>MCQ</span>
+    </a>
+    <a data-nav="notes" href="../notes/index.html">
+        📝 <span>Notes</span>
+    </a>
+    <a data-nav="help" href="../help/index.html">
+        ❓ <span>Help</span>
+    </a>
+</nav>
+</body>
+</html>

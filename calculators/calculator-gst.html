@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GST Calculator</title>
+
+  <style>
+
+    /* =============================== */
+    /* FULL SCREEN DARK BLUE BACKGROUND */
+    /* =============================== */
+
+    body {
+        margin: 0;
+        font-family: "Segoe UI", sans-serif;
+        background: linear-gradient(135deg, #0b1d33, #123a63);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    /* Back Button */
+    .back-btn {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        font-size: 20px;
+        color: white;
+        text-decoration: none;
+        background: #123a63;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Main Card */
+    .gst-card {
+        background: #ffffff;
+        width: 90%;
+        max-width: 360px;
+        padding: 25px 20px;
+        border-radius: 18px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    /* Title */
+    .gst-card h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #0b1d33;
+    }
+
+    /* Labels */
+    label {
+        font-weight: 600;
+        font-size: 14px;
+        color: #0b1d33;
+    }
+
+    /* Input */
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-top: 6px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        border: 2px solid #0b1d33;
+        font-size: 15px;
+    }
+
+    /* Toggle Buttons */
+    .toggle {
+        display: flex;
+        margin-bottom: 20px;
+        gap: 10px;
+    }
+
+    .toggle button {
+        flex: 1;
+        padding: 10px;
+        border-radius: 8px;
+        border: 2px solid #0b1d33;
+        background: white;
+        color: #0b1d33;
+        cursor: pointer;
+        font-weight: 600;
+    }
+
+    .toggle button.active {
+        background: #0b1d33;
+        color: white;
+    }
+
+    /* Calculate Button */
+    .calculate-btn {
+        width: 100%;
+        padding: 12px;
+        background: #0b1d33;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 15px;
+        cursor: pointer;
+    }
+
+    .calculate-btn:hover {
+        background: #123a63;
+    }
+
+    /* Result Box */
+    .result-box {
+        margin-top: 20px;
+        padding: 15px;
+        background: #0b1d33;
+        color: white;
+        border-radius: 10px;
+        text-align: center;
+        font-weight: 600;
+    }
+
+  </style>
+</head>
+<body>
+
+<a href="../calculators/index.html" class="back-btn">←</a>
+
+<div class="gst-card">
+
+  <h2>GST Calculator</h2>
+
+  <div class="toggle">
+    <button id="withGST" class="active" onclick="setMode('with')">With GST</button>
+    <button id="withoutGST" onclick="setMode('without')">Without GST</button>
+  </div>
+
+  <label>Amount (₹)</label>
+  <input type="number" id="amount" placeholder="Enter Amount">
+
+  <label>GST %</label>
+  <input type="number" id="gstRate" placeholder="Enter GST %">
+
+  <button class="calculate-btn" onclick="calculateGST()">Calculate</button>
+
+  <div class="result-box" id="result">
+    Result will appear here
+  </div>
+
+</div>
+
+<script>
+
+  let mode = "with";
+
+  function setMode(selected) {
+      mode = selected;
+
+      document.getElementById("withGST").classList.remove("active");
+      document.getElementById("withoutGST").classList.remove("active");
+
+      if(selected === "with"){
+          document.getElementById("withGST").classList.add("active");
+      } else {
+          document.getElementById("withoutGST").classList.add("active");
+      }
+  }
+
+  function calculateGST() {
+
+      let amount = parseFloat(document.getElementById("amount").value);
+      let rate = parseFloat(document.getElementById("gstRate").value);
+
+      if(isNaN(amount) || isNaN(rate)) {
+          document.getElementById("result").innerText = "Please enter valid values";
+          return;
+      }
+
+      let gstAmount = (amount * rate) / 100;
+
+      if(mode === "with") {
+          let total = amount + gstAmount;
+          document.getElementById("result").innerText =
+              "GST: ₹" + gstAmount.toFixed(2) +
+              " | Total: ₹" + total.toFixed(2);
+      } else {
+          let base = amount / (1 + rate / 100);
+          let gstOnly = amount - base;
+          document.getElementById("result").innerText =
+              "Base: ₹" + base.toFixed(2) +
+              " | GST: ₹" + gstOnly.toFixed(2);
+      }
+  }
+
+</script>
+
+</body>
+</html>

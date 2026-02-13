@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculators</title>
+
+    <style>
+
+        /* ============================= */
+        /* RESET */
+        /* ============================= */
+           /* Header container */
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+  height: 60px;            /* fixed clean height */
+}
+
+/* Logo + Title alignment */
+.logo-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Fix logo size properly */
+.logo {
+  width: 32px;             /* control width */
+  height: 32px;            /* control height */
+  object-fit: contain;
+  border-radius: 6px;      /* optional */
+}
+
+/* Title text size */
+.top-bar h1 {
+  font-size: 16px;
+  margin: 0;
+}
+
+        * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          font-family: "Segoe UI", sans-serif;
+        }
+
+        body {
+          background: #f1f4f8;
+          padding-bottom: 80px;
+        }
+
+        /* ============================= */
+        /* TOP BAR */
+        /* ============================= */
+
+        .top-bar {
+          background: #0b1d33;
+          color: white;
+          height: 60px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0 15px;
+        }
+
+        .top-bar h1 {
+          font-size: 18px;
+          font-weight: 600;
+        }
+
+        .back-btn {
+          color: white;
+          text-decoration: none;
+          font-size: 20px;
+        }
+
+        /* ============================= */
+        /* SLIDING TABS */
+        /* ============================= */
+
+        .tabs {
+          display: flex;
+          overflow-x: auto;
+          white-space: nowrap;
+          background: #123a63;
+          scrollbar-width: none;
+        }
+
+        .tabs::-webkit-scrollbar {
+          display: none;
+        }
+
+        .tab {
+          flex: 0 0 auto;
+          padding: 14px 20px;
+          font-size: 13px;
+          color: rgba(255,255,255,0.7);
+          text-decoration: none;
+        }
+
+        .tab.active {
+          color: #f59e0b;
+          font-weight: 600;
+        }
+
+        /* ============================= */
+        /* MAIN CONTENT */
+        /* ============================= */
+
+        .main-content {
+          padding: 20px 15px;
+        }
+
+        /* ============================= */
+        /* CARDS GRID */
+        /* ============================= */
+
+        .cards-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+        }
+
+        .card {
+          background: white;
+          border-radius: 14px;
+          padding: 22px 10px;
+          text-align: center;
+          text-decoration: none;
+          border: 1px solid #d7deea;
+          transition: 0.2s ease;
+        }
+
+        .card:hover {
+          transform: translateY(-3px);
+        }
+
+        .card span {
+          font-size: 32px;
+          display: block;
+          margin-bottom: 8px;
+        }
+
+        .card p {
+          font-size: 14px;
+          font-weight: 600;
+          color: #0b1d33;
+        }
+
+        /* ============================= */
+        /* DESKTOP VIEW */
+        /* ============================= */
+
+        @media(min-width: 768px) {
+          .cards-grid {
+            grid-template-columns: repeat(3, 1fr);
+          }
+        }
+
+        /* ============================= */
+        /* BOTTOM NAV */
+        /* ============================= */
+
+        .bottom-nav {
+          position: fixed;
+          bottom: 0;
+          width: 100%;
+          height: 65px;
+          background: #0b1d33;
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+        }
+
+        .bottom-nav a {
+          color: rgba(255,255,255,0.8);
+          font-size: 11px;
+          text-decoration: none;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .bottom-nav span {
+          font-size: 11px;
+        }
+/* Fix card icon size properly */
+.card span {
+  font-size: 28px;        /* consistent size */
+  display: block;
+  margin-bottom: 10px;
+  line-height: 1;
+}
+
+/* If using image icon instead of emoji */
+.card img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+    </style>
+</head>
+
+<body>
+
+<!-- ===== TOP BAR ===== -->
+<header class="top-bar">
+    <div class="logo-title">
+        <img src="../images/logo2.jpeg" alt="Logo" class="logo">
+        <h1>Easy Construction Calculator</h1>
+    </div>
+    <div class="top-icon">⚙️</div>
+</header>
+
+<!-- ===== SLIDING TABS ===== -->
+<nav class="tabs">
+    <a class="tab" href="../index.html">QUANTITY</a>
+    <a class="tab active" href="index.html">CALCULATOR</a>
+    <a class="tab" href="../compass/index.html">COMPASS</a>
+    <a class="tab" href="../calculator/rcc.html">RCC</a>
+    <a class="tab" href="../calculator/area.html">AREA</a>
+    <a class="tab" href="../calculator/volume.html">VOLUME</a>
+    <a class="tab" href="../calculator/conversion.html">CONVERSION</a>
+</nav>
+
+<!-- ===== MAIN CONTENT ===== -->
+<main class="main-content">
+    <section class="cards-grid">
+
+        <a class="card" href="calculator.html">
+            <span>🧮</span>
+            <p>Basic Calculator</p>
+        </a>
+
+        <a class="card" href="calculator-currency.html">
+            <span>💱</span>
+            <p>Currency Calculator</p>
+        </a>
+
+        <a class="card" href="calculator-gst.html">
+            <span>🧾</span>
+            <p>GST Calculator</p>
+        </a>
+
+        <a class="card" href="calculator-scale.html">
+            <span>📏</span>
+            <p>Scale Calculator</p>
+        </a>
+
+        <a class="card" href="calculator-scaling.html">
+            <span>📐</span>
+            <p>Scaling Calculator</p>
+        </a>
+
+        <a class="card" href="calculator-unit.html">
+            <span>🔄</span>
+            <p>Unit Converter</p>
+        </a>
+
+    </section>
+</main>
+
+<!-- ===== BOTTOM NAV ===== -->
+<nav class="bottom-nav">
+    <a href="../index.html">📐<span>Calculator</span></a>
+    <a href="../mcq/index.html">📘<span>MCQ</span></a>
+    <a href="../notes/index.html">📝<span>Notes</span></a>
+    <a href="../help/index.html">❓<span>Help</span></a>
+</nav>
+
+</body>
+</html>

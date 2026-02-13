@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notes</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+
+<body class="page-notes">
+
+<!-- ================= TOP BAR ================= -->
+<header class="top-bar">
+  <h1>Easy Construction Calculator</h1>
+  <div class="top-icon">📝</div>
+</header>
+
+<!-- ================= TABS BAR ================= -->
+<nav class="tabs">
+  <a class="tab" href="../index.html">QUANTITY</a>
+  <a class="tab" href="../calculator/rcc.html">RCC</a>
+  <a class="tab" href="../calculator/area.html">AREA</a>
+  <a class="tab" href="../calculator/volume.html">VOLUME</a>
+  <a class="tab" href="../calculator/conversion.html">CONVERSION</a>
+</nav>
+
+<!-- ================= MAIN LAYOUT ================= -->
+<div class="app-layout">
+
+  <!-- ===== SIDEBAR (DESKTOP) ===== -->
+  <aside class="sidebar">
+    <a href="../index.html">📐 Calculator</a>
+    <a href="../mcq/index.html">📘 MCQ</a>
+    <a class="active" href="index.html">📝 Notes</a>
+    <a href="../help/index.html">❓ Help</a>
+  </aside>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-content notes-page">
+
+    <!-- ✅ FIXED NOTES HEADER -->
+    <div class="notes-header"
+         style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+      <h2>Notes</h2>
+      <button class="create-notes-btn">➕ Add Notes</button>
+    </div>
+
+    <!-- Notes Grid -->
+    <section class="notes-grid">
+
+      <div class="note-card">
+        <h3 class="note-title">Test</h3>
+        <div class="note-date">📅 Dec 7, 2025 · 7:30 PM</div>
+
+        <p class="note-desc">
+          Some quick example text to build on the card title and make...
+        </p>
+
+        <div class="note-actions">
+          <span title="Download">⬇️</span>
+          <span title="View">👁️</span>
+          <span class="danger" title="Delete">🗑️</span>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+</div>
+
+<!-- ================= BOTTOM NAV (MOBILE) ================= -->
+<nav class="bottom-nav">
+  <a data-nav="calculator" href="../index.html">
+    📐 <span>Calculator</span>
+  </a>
+  <a data-nav="mcq" href="../mcq/index.html">
+    📘 <span>MCQ</span>
+  </a>
+  <a data-nav="notes" href="index.html">
+    📝 <span>Notes</span>
+  </a>
+  <a data-nav="help" href="../help/index.html">
+    ❓ <span>Help</span>
+  </a>
+</nav>
+
+</body>
+</html>
