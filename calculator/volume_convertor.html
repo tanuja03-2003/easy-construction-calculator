@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Volume Converter</title>
+
+  <style>
+    body{
+      margin:0;
+      font-family:Arial;
+      background:#eef2f7;
+    }
+
+    /* HEADER */
+    .header{
+      background:#0f2e63;
+      color:white;
+      padding:15px;
+      font-size:18px;
+      display:flex;
+      align-items:center;
+    }
+    .header span{
+      cursor:pointer;
+      margin-right:15px;
+      font-size:22px;
+    }
+
+    /* CONTAINER */
+    .container{
+      padding:15px;
+    }
+
+    /* INPUT */
+    .input-group{
+      display:flex;
+      margin:15px 0;
+    }
+
+    .input-group input{
+      flex:1;
+      padding:12px;
+      border:2px solid #0f2e63;
+      border-radius:10px 0 0 10px;
+      outline:none;
+      font-size:16px;
+    }
+
+    .unit-box{
+      width:80px;
+      background:#0f2e63;
+      color:white;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:0 10px 10px 0;
+      font-weight:bold;
+    }
+
+    /* TABLE */
+    .table{
+      background:white;
+      border-radius:12px;
+      overflow:hidden;
+      margin-top:20px;
+    }
+
+    .table-header{
+      background:#0f2e63;
+      color:white;
+      padding:12px;
+      font-weight:bold;
+    }
+
+    .table-row{
+      display:flex;
+      justify-content:space-between;
+      padding:14px;
+      border-bottom:1px solid #ddd;
+      font-size:15px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="header">
+  <span onclick="history.back()">←</span>
+  Volume Converter
+</div>
+
+<div class="container">
+
+  <!-- INPUT -->
+  <div class="input-group">
+    <input type="number" id="volumeInput" value="1" oninput="convertVolume()">
+    <div class="unit-box">m³</div>
+  </div>
+
+  <!-- RESULT TABLE -->
+  <div class="table">
+    <div class="table-header">Conversion Value</div>
+
+    <div class="table-row"><span>Millimeter³</span><span id="mm3"></span></div>
+    <div class="table-row"><span>Centimeter³</span><span id="cm3"></span></div>
+    <div class="table-row"><span>Decimeter³</span><span id="dm3"></span></div>
+    <div class="table-row"><span>Meter³</span><span id="m3"></span></div>
+    <div class="table-row"><span>Kilometer³</span><span id="km3"></span></div>
+    <div class="table-row"><span>Foot³</span><span id="ft3"></span></div>
+    <div class="table-row"><span>Yard³</span><span id="yard3"></span></div>
+    <div class="table-row"><span>Inch³</span><span id="inch3"></span></div>
+    <div class="table-row"><span>Liter</span><span id="liter"></span></div>
+    <div class="table-row"><span>Gallon (US)</span><span id="gallonUS"></span></div>
+    <div class="table-row"><span>Gallon (UK)</span><span id="gallonUK"></span></div>
+  </div>
+
+</div>
+
+<script>
+
+  function convertVolume(){
+
+    let value = parseFloat(document.getElementById("volumeInput").value);
+
+    if(isNaN(value)){
+      document.querySelectorAll(".table-row span:last-child")
+        .forEach(e=>e.innerText="0");
+      return;
+    }
+
+    let m3 = value; // Base unit
+
+    document.getElementById("mm3").innerText = (m3 * 1e9).toFixed(2) + " mm³";
+    document.getElementById("cm3").innerText = (m3 * 1e6).toFixed(2) + " cm³";
+    document.getElementById("dm3").innerText = (m3 * 1000).toFixed(2) + " dm³";
+    document.getElementById("m3").innerText = m3.toFixed(3) + " m³";
+    document.getElementById("km3").innerText = (m3 / 1e9).toFixed(9) + " km³";
+    document.getElementById("ft3").innerText = (m3 * 35.3147).toFixed(5) + " ft³";
+    document.getElementById("yard3").innerText = (m3 * 1.30795).toFixed(5) + " yd³";
+    document.getElementById("inch3").innerText = (m3 * 61023.7441).toFixed(2) + " in³";
+    document.getElementById("liter").innerText = (m3 * 1000).toFixed(2) + " L";
+    document.getElementById("gallonUS").innerText = (m3 * 264.172).toFixed(4) + " gal (US)";
+    document.getElementById("gallonUK").innerText = (m3 * 219.969).toFixed(4) + " gal (UK)";
+  }
+
+  convertVolume(); // Load default
+
+</script>
+
+</body>
+</html>

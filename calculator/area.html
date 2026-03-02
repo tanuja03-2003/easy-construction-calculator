@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Area Calculator</title>
 
-  <!-- ✅ correct css path -->
   <link rel="stylesheet" href="../style.css" />
 </head>
 
@@ -19,9 +18,9 @@
 
 <!-- ================= TABS BAR ================= -->
 <nav class="tabs">
-  <a class="tab" href="../index.html">QUANTITY</a>
   <a class="tab" href="../calculators/index.html">CALCULATOR</a>
   <a class="tab" href="../compass/index.html">COMPASS</a>
+  <a class="tab" href="../index.html">QUANTITY</a>
   <a class="tab active" href="rcc.html">RCC</a>
   <a class="tab" href="area.html">AREA</a>
   <a class="tab" href="volume.html">VOLUME</a>
@@ -31,7 +30,7 @@
 <!-- ================= MAIN LAYOUT ================= -->
 <div class="app-layout">
 
-  <!-- ===== SIDEBAR (DESKTOP) ===== -->
+  <!-- ===== SIDEBAR ===== -->
   <aside class="sidebar">
     <a href="../index.html">📐 Calculator</a>
     <a href="../mcq/index.html">📘 MCQ</a>
@@ -43,33 +42,48 @@
   <main class="main-content">
     <section class="cards-grid">
 
-      <a href="#" class="card">
-        <span>⭕</span>
+      <!-- Circle -->
+      <a href="circle.html" class="card">
+        <span style="font-size:40px;">⭕</span>
         <p>Circle</p>
       </a>
 
-      <a href="#" class="card">
-        <span>⬛</span>
+      <!-- Square -->
+      <a href="square.html" class="card">
+        <span style="font-size:40px;">⬛</span>
         <p>Square</p>
       </a>
 
-      <a href="#" class="card">
-        <span>▭</span>
+      <!-- Rectangle (FIXED INLINE STYLE) -->
+      <a href="rectangle.html" class="card">
+        <span
+                style="
+            display:inline-block;
+            width:40px;
+            height:25px;
+            background:#0b2c6f;
+            border:3px solid #000;
+            border-radius:6px;
+            margin-bottom:8px;">
+        </span>
         <p>Rectangle</p>
       </a>
 
-      <a href="#" class="card">
-        <span>🔺</span>
+      <!-- Triangle -->
+      <a href="triangle.html" class="card">
+        <span style="font-size:40px;">🔺</span>
         <p>Triangle</p>
       </a>
 
-      <a href="#" class="card">
-        <span>📐</span>
+      <!-- Trapezoid -->
+      <a href="trapezoid.html" class="card">
+        <span style="font-size:40px;">📐</span>
         <p>Trapezoid</p>
       </a>
 
-      <a href="#" class="card">
-        <span>🥚</span>
+      <!-- Ellipse -->
+      <a href="ellipse.html" class="card">
+        <span style="font-size:40px;">🥚</span>
         <p>Ellipse</p>
       </a>
 
@@ -78,20 +92,12 @@
 
 </div>
 
-<!-- ================= BOTTOM NAV (MOBILE) ================= -->
+<!-- ================= BOTTOM NAV ================= -->
 <nav class="bottom-nav">
-  <a data-nav="calculator" href="../index.html">
-    📐 <span>Calculator</span>
-  </a>
-  <a data-nav="mcq" href="../mcq/index.html">
-    📘 <span>MCQ</span>
-  </a>
-  <a data-nav="notes" href="../notes/index.html">
-    📝 <span>Notes</span>
-  </a>
-  <a data-nav="help" href="../help/index.html">
-    ❓ <span>Help</span>
-  </a>
+  <a data-nav="calculator" href="../index.html">📐 <span>Calculator</span></a>
+  <a data-nav="mcq" href="../mcq/index.html">📘 <span>MCQ</span></a>
+  <a data-nav="notes" href="../notes/index.html">📝 <span>Notes</span></a>
+  <a data-nav="help" href="../help/index.html">❓ <span>Help</span></a>
 </nav>
 
 </body>

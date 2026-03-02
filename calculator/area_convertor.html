@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Area Converter</title>
+
+  <style>
+    body{
+      margin:0;
+      font-family:Arial;
+      background:#eef2f7;
+    }
+
+    /* HEADER */
+    .header{
+      background:#0f2e63;
+      color:white;
+      padding:15px;
+      font-size:18px;
+      display:flex;
+      align-items:center;
+    }
+    .header span{
+      cursor:pointer;
+      margin-right:15px;
+      font-size:22px;
+    }
+
+    /* CONTAINER */
+    .container{
+      padding:15px;
+    }
+
+    /* INPUT */
+    .input-group{
+      display:flex;
+      margin:15px 0;
+    }
+
+    .input-group input{
+      flex:1;
+      padding:10px;
+      border:2px solid #0f2e63;
+      border-radius:8px 0 0 8px;
+      outline:none;
+      font-size:16px;
+    }
+
+    .unit-box{
+      width:80px;
+      background:#0f2e63;
+      color:white;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:0 8px 8px 0;
+      font-weight:bold;
+    }
+
+    /* TABLE */
+    .table{
+      background:white;
+      border-radius:10px;
+      overflow:hidden;
+      margin-top:15px;
+    }
+
+    .table-header{
+      background:#0f2e63;
+      color:white;
+      padding:12px;
+      font-weight:bold;
+    }
+
+    .table-row{
+      display:flex;
+      justify-content:space-between;
+      padding:12px;
+      border-bottom:1px solid #ddd;
+      font-size:15px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="header">
+  <span onclick="history.back()">←</span>
+  Area Converter
+</div>
+
+<div class="container">
+
+  <!-- INPUT -->
+  <div class="input-group">
+    <input type="number" id="areaInput" value="1" oninput="convertArea()">
+    <div class="unit-box">m²</div>
+  </div>
+
+  <!-- RESULT TABLE -->
+  <div class="table">
+    <div class="table-header">Conversion Value</div>
+
+    <div class="table-row"><span>Square Millimeter</span><span id="mm2"></span></div>
+    <div class="table-row"><span>Square Centimeter</span><span id="cm2"></span></div>
+    <div class="table-row"><span>Square Decimeter</span><span id="dm2"></span></div>
+    <div class="table-row"><span>Square Meter</span><span id="m2"></span></div>
+    <div class="table-row"><span>Square Kilometer</span><span id="km2"></span></div>
+    <div class="table-row"><span>Square Foot</span><span id="ft2"></span></div>
+    <div class="table-row"><span>Square Yard</span><span id="yd2"></span></div>
+    <div class="table-row"><span>Square Inch</span><span id="inch2"></span></div>
+    <div class="table-row"><span>Square Mile</span><span id="mile2"></span></div>
+    <div class="table-row"><span>Acre</span><span id="acre"></span></div>
+    <div class="table-row"><span>Hectare</span><span id="hectare"></span></div>
+  </div>
+
+</div>
+
+<script>
+
+  function convertArea(){
+
+    let value=parseFloat(document.getElementById("areaInput").value);
+
+    if(isNaN(value)){
+      document.querySelectorAll(".table-row span:last-child")
+      .forEach(e=>e.innerText="0");
+      return;
+    }
+
+    // Base = square meters
+
+    document.getElementById("mm2").innerText = (value*1000000).toFixed(3) + " mm²";
+    document.getElementById("cm2").innerText = (value*10000).toFixed(3) + " cm²";
+    document.getElementById("dm2").innerText = (value*100).toFixed(3) + " dm²";
+    document.getElementById("m2").innerText  = value.toFixed(3) + " m²";
+    document.getElementById("km2").innerText = (value/1000000).toFixed(6) + " km²";
+    document.getElementById("ft2").innerText = (value*10.7639).toFixed(4) + " ft²";
+    document.getElementById("yd2").innerText = (value*1.19599).toFixed(5) + " yd²";
+    document.getElementById("inch2").innerText = (value*1550).toFixed(3) + " in²";
+    document.getElementById("mile2").innerText = (value*0.000000386102).toFixed(8) + " mi²";
+    document.getElementById("acre").innerText = (value*0.000247105).toFixed(6) + " acre";
+    document.getElementById("hectare").innerText = (value*0.0001).toFixed(6) + " hectare";
+  }
+
+  convertArea(); // default load
+
+</script>
+
+</body>
+</html>

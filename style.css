@@ -1767,3 +1767,559 @@ px !important;
   color: #f59e0b;
   font-weight: 600;
 }
+body {
+  font-family: Arial, sans-serif;
+  background: #eef1f5;
+}
+
+.slab-header {
+  background: #0d2c54;
+  color: white;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.slab-header h1 {
+  flex: 1;
+  text-align: center;
+  font-size: 22px;
+}
+
+.back {
+  color: white;
+  font-size: 20px;
+  text-decoration: none;
+}
+
+.container {
+  padding: 15px;
+}
+
+.input-section {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.input-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.input-row input {
+  width: 100px;
+  padding: 5px;
+  font-size: 16px;
+}
+
+.ratio-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.ratio-row input {
+  width: 60px;
+}
+
+.calculate-btn {
+  width: 100%;
+  background: #0d2c54;
+  color: white;
+  padding: 10px;
+  border: none;
+  font-size: 18px;
+  border-radius: 6px;
+}
+
+.result-section {
+  margin-top: 20px;
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 18px;
+}
+
+.unit-switch {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  background: white;
+}
+.result-section{
+    background:#f4f6f8;
+    padding:15px;
+    margin-top:15px;
+    border-radius:8px;
+}
+
+.result-section h3{
+    font-size:18px;
+    margin-bottom:10px;
+    color:#0d2b4d;
+}
+
+/* 🔥 IMPORTANT PART */
+.result-row{
+    display:grid;
+    grid-template-columns: 1fr 80px 60px;
+    align-items:center;
+    padding:8px 0;
+    border-bottom:1px solid #ddd;
+    font-size:15px;
+}
+
+/* value column center aligned */
+.result-row span:nth-child(2){
+    text-align:center;
+    font-weight:600;
+}
+
+/* unit column right aligned */
+.result-row span:nth-child(3){
+    text-align:right;
+    color:#555;
+}
+
+.total-row{
+    font-weight:700;
+}
+
+hr{
+    margin:10px 0;
+    border:0;
+    border-top:2px solid #ddd;
+}
+/* ========== BODY ========== */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f2f4f8;
+    margin: 0;
+    padding: 0;
+}
+
+/* ========== HEADER ========== */
+.header {
+    background: #0b3d91;   /* Exact Dark Blue */
+    color: white;
+    padding: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.header h1 {
+    margin: 0 auto;
+    font-size: 26px;
+    font-weight: 600;
+}
+
+.back-btn {
+    color: white;
+    font-size: 22px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* ========== CONTAINER ========== */
+.container {
+    padding: 20px;
+}
+
+/* ========== INPUT SECTION ========== */
+h2 {
+    color: #0b3d91;
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 6px 0 12px 0;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+}
+
+/* ========== BUTTON ========== */
+button {
+    background: #0b3d91;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #072a63;
+}
+
+/* ========== RESULT CARD ========== */
+.result-card {
+    background: white;
+    padding: 20px;
+    margin-top: 25px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.08);
+}
+
+.result-card h3 {
+    color: #0b3d91;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+/* ========== TABLE STRUCTURE ========== */
+.result-table {
+    width: 100%;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 0.6fr;
+    padding: 10px 0;
+    border-bottom: 1px solid #e4e6eb;
+    font-size: 14px;
+}
+
+.row span:nth-child(2) {
+    text-align: right;
+    font-weight: 600;
+}
+
+.row span:nth-child(3) {
+    text-align: right;
+    color: #666;
+}
+
+.total {
+    font-weight: bold;
+    color: #0b3d91;
+}
+
+/* ========== UNIT SWITCH ========== */
+.unit-switch {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.unit-switch button {
+    background: white;
+    color: #0b3d91;
+    border: 2px solid #0b3d91;
+    margin: 5px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.unit-switch button.active,
+.unit-switch button:hover {
+    background: #0b3d91;
+    color: white;
+}
+.page-header {
+    background: #0b3d91; /* your dark blue */
+    color: white;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.back-btn {
+    color: white;
+    font-size: 22px;
+    text-decoration: none;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.page-header h1 {
+    font-size: 22px;
+    font-weight: 600;
+}
+/* Section Title */
+.section-title {
+    color: #0B3C74;
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/* Grid Layout */
+.ratio-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+/* Input Group */
+.input-group {
+    position: relative;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 14px 10px;
+    border-radius: 8px;
+    border: 2px solid #0B3C74;
+    font-size: 14px;
+    outline: none;
+    background: #fff;
+}
+
+/* Floating Label */
+.input-group label {
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    background: #fff;
+    padding: 0 6px;
+    font-size: 12px;
+    color: #0B3C74;
+    font-weight: 500;
+}
+
+/* Concrete Price Row */
+.price-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.price-input {
+    flex: 1;
+}
+
+.unit-box {
+    background: #0B3C74;
+    color: white;
+    padding: 12px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    min-width: 70px;
+    text-align: center;
+}
+body{
+    font-family: Arial, sans-serif;
+    margin:0;
+    background:#f2f4f8;
+}
+
+.page-header{
+    background:#0b3d91;
+    color:white;
+    padding:15px;
+    display:flex;
+    align-items:center;
+}
+
+.page-header h1{
+    flex:1;
+    text-align:center;
+    margin:0;
+}
+
+.back-btn{
+    color:white;
+    font-size:22px;
+    text-decoration:none;
+}
+
+.container{
+    padding:15px;
+}
+
+.card, .result-card{
+    background:white;
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:20px;
+    box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+
+h2{
+    color:#0b3d91;
+}
+
+.input-group{
+    margin-bottom:12px;
+}
+
+.input-group label{
+    display:block;
+    margin-bottom:5px;
+    font-size:14px;
+}
+
+.input-group input{
+    width:100%;
+    padding:8px;
+    border-radius:6px;
+    border:1px solid #ccc;
+}
+
+.ratio-group{
+    display:flex;
+    gap:10px;
+}
+
+.ratio-group input{
+    flex:1;
+}
+
+.btn{
+    width:100%;
+    padding:10px;
+    background:#0b3d91;
+    color:white;
+    border:none;
+    border-radius:6px;
+    margin-top:10px;
+    cursor:pointer;
+}
+
+.result-row{
+    display:grid;
+    grid-template-columns: 1.5fr 1fr 0.8fr;
+    padding:6px 0;
+    border-bottom:1px solid #eee;
+}
+
+.result-row span:nth-child(2){
+    text-align:right;
+    font-weight:bold;
+}
+
+.result-row span:nth-child(3){
+    text-align:right;
+    color:#555;
+}
+
+.unit-switch{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    padding:10px;
+}
+
+.unit-switch button{
+    padding:8px 12px;
+    border-radius:5px;
+    border:1px solid #0b3d91;
+    background:white;
+    color:#0b3d91;
+    cursor:pointer;
+}
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #f2f4f8;
+}
+
+.page-header {
+    background: #0f2d5c;
+    color: white;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.back-btn {
+    color: white;
+    font-size: 22px;
+    text-decoration: none;
+    margin-right: 15px;
+}
+
+.container {
+    padding: 15px;
+}
+
+.card {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+h2 {
+    color: #0f2d5c;
+    margin-top: 15px;
+}
+
+.input-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.input-row label {
+    flex: 1;
+}
+
+.input-row input {
+    flex: 1;
+    padding: 6px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
+
+.input-row span {
+    width: 60px;
+    text-align: center;
+}
+
+.ratio-row {
+    display: flex;
+    gap: 10px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background: #0f2d5c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.result-card h3 {
+    color: #0f2d5c;
+}
+
+.result-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 60px;
+    padding: 6px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.result-row span:nth-child(2) {
+    text-align: right;
+    font-weight: bold;
+}
+
+.result-row span:nth-child(3) {
+    text-align: center;
+}
+
+.total {
+    font-weight: bold;
+    color: #0f2d5c;
+}

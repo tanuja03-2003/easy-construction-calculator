@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>6 Bar Column</title>
+
+  <style>
+
+    :root{
+     --dark:#0b2c6f;
+     --blue:#123f9a;
+    }
+
+    body{
+     margin:0;
+     font-family:Arial;
+     background:#eef2fa;
+    }
+
+    .header{
+     background:var(--dark);
+     color:white;
+     padding:18px;
+     text-align:center;
+     font-size:20px;
+     font-weight:bold;
+    }
+
+    .container{
+     max-width:900px;
+     margin:20px auto;
+     background:white;
+     padding:20px;
+     border-radius:10px;
+     box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    h3{
+     color:var(--dark);
+     border-bottom:2px solid var(--dark);
+     padding-bottom:5px;
+    }
+
+    .input-row{
+     display:flex;
+     gap:10px;
+     margin-bottom:10px;
+    }
+
+    input{
+     flex:1;
+     padding:8px;
+     border:1px solid #ccc;
+     border-radius:5px;
+    }
+
+    .unit-box{
+     background:var(--dark);
+     color:white;
+     padding:8px;
+     min-width:60px;
+     text-align:center;
+     border-radius:5px;
+    }
+
+    button{
+     background:var(--dark);
+     color:white;
+     border:none;
+     padding:8px 16px;
+     border-radius:5px;
+     cursor:pointer;
+    }
+
+    button:hover{
+     background:var(--blue);
+    }
+
+    .table-section{
+     margin-top:20px;
+     border:1px solid #ccc;
+     border-radius:8px;
+     overflow:hidden;
+    }
+
+    .table-header{
+     background:#e9eef9;
+     display:flex;
+     padding:10px;
+     font-weight:bold;
+    }
+
+    .table-row{
+     display:flex;
+     padding:8px 10px;
+     border-top:1px solid #eee;
+    }
+
+    .table-header div,
+    .table-row div{
+     flex:1;
+     text-align:center;
+    }
+
+    .unit-switch{
+     display:flex;
+     justify-content:center;
+     gap:10px;
+     margin-top:20px;
+    }
+
+    .unit-switch button{
+     background:#ccc;
+     color:black;
+    }
+
+    .unit-switch button.active{
+     background:var(--dark);
+     color:white;
+    }
+     .back-btn {
+    color: white;
+    font-size: 22px;
+    text-decoration: none;
+    margin-right: 15px;
+}
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <a href="rcc.html" class="back-btn">←</a>
+  Calculation of 6 Bar Column</div>
+
+<div class="container">
+
+  <h3>Column Dimensions</h3>
+
+  <div class="input-row">
+    <input type="number" id="a" value="0.3">
+    <div class="unit-box">m</div>
+  </div>
+
+  <div class="input-row">
+    <input type="number" id="b" value="0.3">
+    <div class="unit-box">m</div>
+  </div>
+
+  <div class="input-row">
+    <input type="number" id="h" value="3">
+    <div class="unit-box">m</div>
+  </div>
+
+  <h3>Steel Details</h3>
+
+  <div class="input-row">
+    <input type="number" id="d1" value="12">
+    <div class="unit-box">mm</div>
+  </div>
+
+  <div class="input-row">
+    <input type="number" id="d2" value="12">
+    <div class="unit-box">mm</div>
+  </div>
+
+  <div class="input-row">
+    <input type="number" id="ring" value="8">
+    <div class="unit-box">mm</div>
+  </div>
+
+  <div class="input-row">
+    <input type="number" id="spacing" value="150">
+    <div class="unit-box">mm</div>
+  </div>
+
+  <div class="input-row">
+    <input type="number" id="cols" value="1">
+    <div class="unit-box">nos</div>
+  </div>
+
+  <h3>Concrete Ratio</h3>
+
+  <div class="input-row">
+    <input type="number" id="cR" value="1">
+    <input type="number" id="sR" value="2">
+    <input type="number" id="aR" value="4">
+  </div>
+
+  <div class="input-row">
+    <input type="number" id="price" placeholder="Steel Price ₹/kg">
+  </div>
+
+  <button onclick="calculate()">Calculate</button>
+
+  <div id="steelTable" class="table-section"></div>
+  <div id="concreteTable" class="table-section"></div>
+
+  <div class="unit-switch">
+    <button onclick="setUnit(event,'m')" class="active">Meter</button>
+    <button onclick="setUnit(event,'ft')">Foot</button>
+    <button onclick="setUnit(event,'yd')">Yard</button>
+    <button onclick="setUnit(event,'brass')">Brass</button>
+  </div>
+
+</div>
+
+<script>
+
+  let currentUnit="m";
+
+  function setUnit(e,u){
+   currentUnit=u;
+   document.querySelectorAll(".unit-switch button").forEach(btn=>btn.classList.remove("active"));
+   e.target.classList.add("active");
+   calculate();
+  }
+
+  function convertVolume(m3){
+   if(currentUnit=="m") return [m3,"m³"];
+   if(currentUnit=="ft") return [m3*35.3147,"ft³"];
+   if(currentUnit=="yd") return [m3*1.30795,"yd³"];
+   if(currentUnit=="brass") return [m3*35.3147/100,"brass"];
+  }
+
+  function convertWeight(kg){
+   if(currentUnit=="m") return [kg,"kg"];
+   if(currentUnit=="ft"||currentUnit=="yd") return [kg*2.20462,"lb"];
+   if(currentUnit=="brass") return [kg,"kg"];
+  }
+
+  function calculate(){
+
+  let a=parseFloat(document.getElementById("a").value)||0;
+  let b=parseFloat(document.getElementById("b").value)||0;
+  let h=parseFloat(document.getElementById("h").value)||0;
+
+  let d1=parseFloat(document.getElementById("d1").value)||0;
+  let d2=parseFloat(document.getElementById("d2").value)||0;
+  let ring=parseFloat(document.getElementById("ring").value)||0;
+  let spacing=parseFloat(document.getElementById("spacing").value)||0;
+  let cols=parseFloat(document.getElementById("cols").value)||1;
+
+  let cR=parseFloat(document.getElementById("cR").value)||1;
+  let sR=parseFloat(document.getElementById("sR").value)||1;
+  let aR=parseFloat(document.getElementById("aR").value)||1;
+  let price=parseFloat(document.getElementById("price").value)||0;
+
+  let volume=a*b*h*cols;
+  let dry=volume*1.54;
+
+  let totalRatio=cR+sR+aR;
+  let cement=(dry*cR)/totalRatio;
+  let sand=(dry*sR)/totalRatio;
+  let agg=(dry*aR)/totalRatio;
+  let bags=cement/0.035;
+
+  let vert1Length=h*4*cols;
+  let vert2Length=h*2*cols;
+
+  let d1Weight=(d1*d1/162)*vert1Length;
+  let d2Weight=(d2*d2/162)*vert2Length;
+
+  let stirrups=spacing>0?(h*1000)/spacing:0;
+  let stirrupLength=2*(a+b);
+  let stirrupWeight=(ring*ring/162)*stirrupLength*stirrups;
+
+  let totalSteel=d1Weight+d2Weight+stirrupWeight;
+  let cost=totalSteel*price;
+
+  let [volVal,volUnit]=convertVolume(volume);
+  let [dryVal,dryUnit]=convertVolume(dry);
+  let [cementVal,cUnit]=convertVolume(cement);
+  let [sandVal,sUnit]=convertVolume(sand);
+  let [aggVal,aUnit]=convertVolume(agg);
+  let [steelVal,steelUnit]=convertWeight(totalSteel);
+
+  document.getElementById("steelTable").innerHTML=`
+  <div class="table-header"><div>Steel</div><div>Quantity</div><div>Unit</div></div>
+  <div class="table-row"><div>Vertical d1 cut length</div><div>${vert1Length.toFixed(3)}</div><div>m</div></div>
+  <div class="table-row"><div>Vertical d2 cut length</div><div>${vert2Length.toFixed(3)}</div><div>m</div></div>
+  <div class="table-row"><div>Stirrups R cut length</div><div>${stirrupLength.toFixed(3)}</div><div>m</div></div>
+  <div class="table-row"><div>d1 Weight</div><div>${d1Weight.toFixed(3)}</div><div>kg</div></div>
+  <div class="table-row"><div>d2 Weight</div><div>${d2Weight.toFixed(3)}</div><div>kg</div></div>
+  <div class="table-row"><div>Stirrups Weight</div><div>${stirrupWeight.toFixed(3)}</div><div>kg</div></div>
+  <div class="table-row"><div>Total Weight</div><div>${steelVal.toFixed(3)}</div><div>${steelUnit}</div></div>
+  <div class="table-row"><div>Total Cost</div><div>${cost.toFixed(2)}</div><div>₹</div></div>
+  `;
+
+  document.getElementById("concreteTable").innerHTML=`
+  <div class="table-header"><div>Concrete</div><div>Quantity</div><div>Unit</div></div>
+  <div class="table-row"><div>Concrete Volume</div><div>${volVal.toFixed(3)}</div><div>${volUnit}</div></div>
+  <div class="table-row"><div>Dry Volume</div><div>${dryVal.toFixed(3)}</div><div>${dryUnit}</div></div>
+  <div class="table-row"><div>Cement</div><div>${cementVal.toFixed(3)}</div><div>${cUnit}</div></div>
+  <div class="table-row"><div>Sand</div><div>${sandVal.toFixed(3)}</div><div>${sUnit}</div></div>
+  <div class="table-row"><div>Aggregate</div><div>${aggVal.toFixed(3)}</div><div>${aUnit}</div></div>
+  <div class="table-row"><div>Cement Bags (50kg)</div><div>${bags.toFixed(1)}</div><div>bags</div></div>
+  `;
+
+  }
+
+  calculate();
+
+</script>
+
+</body>
+</html>

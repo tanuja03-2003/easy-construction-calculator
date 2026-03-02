@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Round Column Calculator</title>
+
+    <style>
+        /* VERY IMPORTANT */
+   *{
+     box-sizing: border-box;
+   }
+
+   .input-row{
+     display:flex;
+     gap:8px;
+     width:100%;
+   }
+
+   .input-row input{
+     flex:1;
+     min-width:0;   /* prevents overflow */
+     padding:8px;
+   }
+           :root{
+             --dark:#0b2c6f;
+             --light:#f3f5fb;
+           }
+
+           body{
+             margin:0;
+             font-family:Arial;
+             background:var(--light);
+           }
+
+           .header{
+             background:var(--dark);
+             color:white;
+             text-align:center;
+             padding:15px;
+             font-size:20px;
+             font-weight:bold;
+           }
+
+           .container{
+             max-width:900px;
+             margin:20px auto;
+             background:white;
+             padding:20px;
+             border-radius:10px;
+             box-shadow:0 5px 15px rgba(0,0,0,0.1);
+           }
+
+           h3{
+             color:var(--dark);
+             border-bottom:2px solid var(--dark);
+             padding-bottom:5px;
+           }
+
+           .input-row{
+             display:flex;
+             gap:10px;
+             margin-bottom:10px;
+           }
+
+           input{
+             flex:1;
+             padding:8px;
+             border:1px solid #ccc;
+             border-radius:5px;
+             box-sizing:border-box;
+           }
+
+           .unit-box{
+             background:var(--dark);
+             color:white;
+             padding:8px;
+             min-width:60px;
+             text-align:center;
+             border-radius:5px;
+           }
+
+           button{
+             background:var(--dark);
+             color:white;
+             border:none;
+             padding:8px 15px;
+             border-radius:5px;
+             cursor:pointer;
+           }
+
+           button:hover{
+             opacity:0.9;
+           }
+
+           .unit-switch{
+             display:flex;
+             gap:10px;
+             margin-top:15px;
+           }
+
+           .unit-switch button{
+             background:#ccc;
+             color:black;
+           }
+
+           .unit-switch button.active{
+             background:var(--dark);
+             color:white;
+           }
+
+           .table-section{
+             margin-top:20px;
+             border:1px solid #ccc;
+             border-radius:8px;
+             overflow:hidden;
+           }
+
+           .table-header{
+             background:#e9eef9;
+             padding:10px;
+             font-weight:bold;
+             display:flex;
+           }
+
+           .table-header div,
+           .table-row div{
+             flex:1;
+             text-align:center;
+           }
+
+           .table-row{
+             display:flex;
+             padding:8px;
+             border-top:1px solid #eee;
+           }
+             .back-btn {
+       color: white;
+       font-size: 22px;
+       text-decoration: none;
+       margin-right: 15px;
+   }
+
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    <a href="rcc.html" class="back-btn">←</a>
+    Calculation of Round Column</div>
+
+<div class="container">
+
+    <h3>Column Dimensions</h3>
+
+    <div class="input-row">
+        <input type="number" id="diameter" placeholder="Diameter (D)">
+        <div class="unit-box">m</div>
+    </div>
+
+    <div class="input-row">
+        <input type="number" id="height" placeholder="Height (H)">
+        <div class="unit-box">m</div>
+    </div>
+
+    <h3>Steel Details</h3>
+
+    <div class="input-row">
+        <input type="number" id="barDia" value="12">
+        <div class="unit-box">mm</div>
+    </div>
+
+    <div class="input-row">
+        <input type="number" id="numBars" value="4">
+        <div class="unit-box">nos</div>
+    </div>
+
+    <div class="input-row">
+        <input type="number" id="ringDia" value="8">
+        <div class="unit-box">mm</div>
+    </div>
+
+    <div class="input-row">
+        <input type="number" id="spacing" value="150">
+        <div class="unit-box">mm</div>
+    </div>
+
+    <div class="input-row">
+        <input type="number" id="columns" value="1">
+        <div class="unit-box">nos</div>
+    </div>
+
+    <h3>Concrete Ratio</h3>
+
+    <div class="input-row">
+        <input type="number" id="cR" value="1">
+        <input type="number" id="sR" value="2">
+        <input type="number" id="aR" value="4">
+    </div>
+
+    <div class="input-row">
+        <input type="number" id="steelPrice" placeholder="Steel Price ₹/kg">
+    </div>
+
+    <button onclick="calculate()">Calculate</button>
+
+    <!-- RESULT TABLES -->
+    <div id="steelResult" class="table-section"></div>
+    <div id="concreteResult" class="table-section"></div>
+
+    <div class="unit-switch">
+        <button onclick="setUnit(event,'m')" class="active">Meter</button>
+        <button onclick="setUnit(event,'ft')">Foot</button>
+        <button onclick="setUnit(event,'yd')">Yard</button>
+        <button onclick="setUnit(event,'brass')">Brass</button>
+    </div>
+
+</div>
+
+<script>
+
+    let currentUnit="m";
+
+    function setUnit(e,unit){
+     currentUnit=unit;
+     document.querySelectorAll(".unit-switch button").forEach(btn=>btn.classList.remove("active"));
+     e.target.classList.add("active");
+     calculate();
+    }
+
+    function toMeter(val){
+     if(currentUnit==="m") return val;
+     if(currentUnit==="ft") return val*0.3048;
+     if(currentUnit==="yd") return val*0.9144;
+     return val;
+    }
+
+    function convertVolume(m3){
+     if(currentUnit==="m") return [m3,"m³"];
+     if(currentUnit==="ft") return [m3*35.3147,"ft³"];
+     if(currentUnit==="yd") return [m3*1.30795,"yd³"];
+     if(currentUnit==="brass") return [m3*35.3147/100,"brass"];
+    }
+
+    function convertWeight(kg){
+     if(currentUnit==="m") return [kg,"kg"];
+     if(currentUnit==="ft"||currentUnit==="yd") return [kg*2.20462,"lb"];
+     return [kg,"kg"];
+    }
+
+    function calculate(){
+
+    let D = toMeter(parseFloat(document.getElementById("diameter").value)||0);
+    let H = toMeter(parseFloat(document.getElementById("height").value)||0);
+    let barDia = parseFloat(document.getElementById("barDia").value)||0;
+    let numBars = parseFloat(document.getElementById("numBars").value)||0;
+    let ringDia = parseFloat(document.getElementById("ringDia").value)||0;
+    let spacing = parseFloat(document.getElementById("spacing").value)||0;
+    let columns = parseFloat(document.getElementById("columns").value)||1;
+    let cR = parseFloat(document.getElementById("cR").value)||1;
+    let sR = parseFloat(document.getElementById("sR").value)||1;
+    let aR = parseFloat(document.getElementById("aR").value)||1;
+    let steelPrice = parseFloat(document.getElementById("steelPrice").value)||0;
+
+    let volume = Math.PI*(D/2)*(D/2)*H*columns;
+    let dryVolume = volume*1.54;
+    let totalRatio = cR+sR+aR;
+
+    let cement = (dryVolume*cR)/totalRatio;
+    let sand = (dryVolume*sR)/totalRatio;
+    let aggregate = (dryVolume*aR)/totalRatio;
+    let bags = cement/0.035;
+
+    let verticalLength = H*numBars*columns;
+    let verticalWeight = (barDia*barDia/162)*verticalLength;
+
+    let stirrupCount = spacing>0 ? (H*1000)/spacing : 0;
+    let stirrupLength = Math.PI*D;
+    let stirrupWeight = (ringDia*ringDia/162)*stirrupLength*stirrupCount;
+
+    let totalWeight = verticalWeight+stirrupWeight;
+    let totalCost = totalWeight*steelPrice;
+
+    let [steelVal,steelUnit]=convertWeight(totalWeight);
+    let [volVal,volUnit]=convertVolume(volume);
+
+    document.getElementById("steelResult").innerHTML = `
+    <div class="table-header"><div>Steel</div><div>Quantity</div><div>Unit</div></div>
+    <div class="table-row"><div>Vertical Cut Length</div><div>${verticalLength.toFixed(2)}</div><div>m</div></div>
+    <div class="table-row"><div>Stirrups Cut Length</div><div>${stirrupLength.toFixed(2)}</div><div>m</div></div>
+    <div class="table-row"><div>Bar Pieces</div><div>${numBars}</div><div>nos</div></div>
+    <div class="table-row"><div>Stirrups Pieces</div><div>${Math.round(stirrupCount)}</div><div>nos</div></div>
+    <div class="table-row"><div>Total Weight</div><div>${steelVal.toFixed(2)}</div><div>${steelUnit}</div></div>
+    <div class="table-row"><div>Total Cost</div><div>${totalCost.toFixed(2)}</div><div>₹</div></div>
+    `;
+
+    document.getElementById("concreteResult").innerHTML = `
+    <div class="table-header"><div>Concrete</div><div>Quantity</div><div>Unit</div></div>
+    <div class="table-row"><div>Concrete Volume</div><div>${volVal.toFixed(3)}</div><div>${volUnit}</div></div>
+    <div class="table-row"><div>Dry Volume</div><div>${dryVolume.toFixed(3)}</div><div>m³</div></div>
+    <div class="table-row"><div>Cement</div><div>${cement.toFixed(3)}</div><div>m³</div></div>
+    <div class="table-row"><div>Sand</div><div>${sand.toFixed(3)}</div><div>m³</div></div>
+    <div class="table-row"><div>Aggregate</div><div>${aggregate.toFixed(3)}</div><div>m³</div></div>
+    <div class="table-row"><div>Cement Bags</div><div>${bags.toFixed(1)}</div><div>bags</div></div>
+    `;
+    }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Square Area</title>
+
+  <style>
+
+    :root{
+      --dark:#0b2c6f;
+      --blue:#123f9a;
+      --light:#f4f6fb;
+    }
+
+    body{
+      margin:0;
+      font-family:Arial;
+      background:var(--light);
+    }
+
+    /* Header */
+    .header{
+      background:var(--dark);
+      color:white;
+      padding:15px;
+      font-size:18px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
+    .header a{
+      color:white;
+      text-decoration:none;
+      font-size:20px;
+    }
+
+    /* Container */
+    .container{
+      max-width:500px;
+      margin:20px auto;
+      background:white;
+      padding:20px;
+      border-radius:12px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    /* Title Box */
+    .title-box{
+      border:2px solid var(--dark);
+      border-radius:12px;
+      padding:15px;
+      display:flex;
+      align-items:center;
+      gap:15px;
+      margin-bottom:20px;
+    }
+
+    .square-icon{
+      width:60px;
+      height:60px;
+      background:#2fb6a4;
+      border:3px solid black;
+      border-radius:8px;
+    }
+
+    /* Inputs */
+    label{
+      font-weight:bold;
+      color:var(--dark);
+    }
+
+    .input-row{
+      display:flex;
+      gap:10px;
+      margin-top:8px;
+    }
+
+    input{
+      flex:1;
+      padding:10px;
+      border:2px solid var(--dark);
+      border-radius:8px;
+      font-size:15px;
+      box-sizing:border-box;
+    }
+
+    .unit-box{
+      background:var(--dark);
+      color:white;
+      padding:10px 15px;
+      border-radius:8px;
+      min-width:50px;
+      text-align:center;
+    }
+
+    /* Buttons */
+    .btn-row{
+      display:flex;
+      gap:10px;
+      margin-top:15px;
+    }
+
+    button{
+      flex:1;
+      padding:10px;
+      border:none;
+      border-radius:25px;
+      background:var(--dark);
+      color:white;
+      font-weight:bold;
+      cursor:pointer;
+    }
+
+    button:hover{
+      background:var(--blue);
+    }
+
+    /* Result Table */
+    .result-section{
+      margin-top:20px;
+      display:none;
+    }
+
+    .table{
+      width:100%;
+      border-collapse:collapse;
+    }
+
+    .table th{
+      background:var(--dark);
+      color:white;
+      padding:10px;
+    }
+
+    .table td{
+      padding:10px;
+      border-bottom:1px solid #ddd;
+      text-align:center;
+    }
+
+    /* Unit Switcher */
+    .unit-switcher{
+      display:flex;
+      justify-content:center;
+      margin-top:15px;
+    }
+
+    .unit-switcher button{
+      background:#ddd;
+      color:black;
+      border-radius:0;
+      padding:8px 15px;
+      flex:none;
+    }
+
+    .unit-switcher button.active{
+      background:var(--dark);
+      color:white;
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <a href="area.html">←</a>
+  Square Area
+</div>
+
+<div class="container">
+
+  <div class="title-box">
+    <div class="square-icon"></div>
+    <h3>Calculation of Square Area</h3>
+  </div>
+
+  <label>Side Length</label>
+  <div class="input-row">
+    <input type="number" id="side" value="5">
+    <div class="unit-box" id="lengthUnit">m</div>
+  </div>
+
+  <div class="btn-row">
+    <button onclick="calculate()">Calculate</button>
+    <button onclick="resetFields()">Reset</button>
+  </div>
+
+  <div class="result-section" id="resultSection">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Material</th>
+        <th>Quantity</th>
+        <th>Unit</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>Area</td>
+        <td id="areaValue">0</td>
+        <td id="areaUnit">m²</td>
+      </tr>
+      <tr>
+        <td>Perimeter</td>
+        <td id="periValue">0</td>
+        <td id="periUnit">meter</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="unit-switcher">
+    <button class="active" onclick="setUnit('meter',this)">meter</button>
+    <button onclick="setUnit('foot',this)">foot</button>
+    <button onclick="setUnit('yard',this)">yard</button>
+    <button onclick="setUnit('brass',this)">brass</button>
+  </div>
+
+</div>
+
+<script>
+
+  let currentUnit = "meter";
+
+  function setUnit(unit,btn){
+    currentUnit = unit;
+
+    document.querySelectorAll(".unit-switcher button")
+      .forEach(b=>b.classList.remove("active"));
+
+    btn.classList.add("active");
+
+    document.getElementById("lengthUnit").innerText =
+      unit === "meter" ? "m" :
+      unit === "foot" ? "ft" :
+      unit === "yard" ? "yd" : "m";
+
+    calculate();
+  }
+
+  function calculate(){
+
+    let side = parseFloat(document.getElementById("side").value);
+    if(isNaN(side) || side<=0) return;
+
+    let sideMeter = side;
+
+    if(currentUnit==="foot") sideMeter = side*0.3048;
+    if(currentUnit==="yard") sideMeter = side*0.9144;
+
+    let areaMeter = sideMeter*sideMeter;
+    let periMeter = 4*sideMeter;
+
+    let finalArea = areaMeter;
+    let finalPeri = periMeter;
+    let areaUnit="m²";
+    let periUnit="meter";
+
+    if(currentUnit==="foot"){
+      finalArea = areaMeter*10.7639;
+      finalPeri = periMeter*3.28084;
+      areaUnit="ft²";
+      periUnit="foot";
+    }
+
+    if(currentUnit==="yard"){
+      finalArea = areaMeter*1.19599;
+      finalPeri = periMeter*1.09361;
+      areaUnit="yd²";
+      periUnit="yard";
+    }
+
+    if(currentUnit==="brass"){
+      finalArea = areaMeter/100;
+      areaUnit="brass";
+      periUnit="meter";
+    }
+
+    document.getElementById("areaValue").innerText = finalArea.toFixed(3);
+    document.getElementById("periValue").innerText = finalPeri.toFixed(3);
+    document.getElementById("areaUnit").innerText = areaUnit;
+    document.getElementById("periUnit").innerText = periUnit;
+
+    document.getElementById("resultSection").style.display="block";
+  }
+
+  function resetFields(){
+    document.getElementById("side").value="";
+    document.getElementById("resultSection").style.display="none";
+  }
+
+  calculate();
+
+</script>
+
+</body>
+</html>

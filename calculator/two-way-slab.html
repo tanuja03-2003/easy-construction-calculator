@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Two Way Slab</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+<header class="page-header">
+  <a href="rcc.html" class="back-btn">&#8592;</a>
+  <h1>Two Way Slab</h1>
+</header>
+
+<div class="container">
+
+  <div class="card">
+
+    <h2>Concrete Slab Dimensions</h2>
+
+    <div class="input-group">
+      <label>Length (L)</label>
+      <input type="number" id="length" value="5">
+    </div>
+
+    <div class="input-group">
+      <label>Width (B)</label>
+      <input type="number" id="width" value="4">
+    </div>
+
+    <div class="input-group">
+      <label>Thickness</label>
+      <input type="number" id="thickness" value="0.15">
+    </div>
+
+    <h2>Steel Bar Dimensions</h2>
+
+    <div class="input-group">
+      <label>Bar Dia d1 (mm)</label>
+      <input type="number" id="d1" value="12">
+    </div>
+
+    <div class="input-group">
+      <label>Bar Dia d2 (mm)</label>
+      <input type="number" id="d2" value="10">
+    </div>
+
+    <div class="input-group">
+      <label>Spacing S1 (mm)</label>
+      <input type="number" id="s1" value="150">
+    </div>
+
+    <div class="input-group">
+      <label>Spacing S2 (mm)</label>
+      <input type="number" id="s2" value="150">
+    </div>
+
+    <div class="input-group">
+      <label>Steel Price (₹/kg)</label>
+      <input type="number" id="steelPrice" value="0">
+    </div>
+
+    <h2>Concrete Ratio</h2>
+
+    <div class="ratio-group">
+      <input type="number" id="cementRatio" value="1">
+      <input type="number" id="sandRatio" value="2">
+      <input type="number" id="aggRatio" value="4">
+    </div>
+
+    <button class="btn" onclick="calculate()">Calculate</button>
+
+  </div>
+
+
+  <!-- RESULT SECTION -->
+
+  <div class="result-card">
+
+    <h3>Steel</h3>
+
+    <div class="result-row">
+      <span>d1 Cut Length</span>
+      <span id="d1len">0</span>
+      <span class="unit-length">m</span>
+    </div>
+
+    <div class="result-row">
+      <span>d2 Cut Length</span>
+      <span id="d2len">0</span>
+      <span class="unit-length">m</span>
+    </div>
+
+    <div class="result-row">
+      <span>d1 Bar Pieces</span>
+      <span id="d1bars">0</span>
+      <span>nos</span>
+    </div>
+
+    <div class="result-row">
+      <span>d2 Bar Pieces</span>
+      <span id="d2bars">0</span>
+      <span>nos</span>
+    </div>
+
+    <div class="result-row">
+      <span>Total Weight</span>
+      <span id="totalWeight">0</span>
+      <span class="unit-weight">kg</span>
+    </div>
+
+    <div class="result-row">
+      <span>Total Cost</span>
+      <span id="totalCost">0</span>
+      <span>₹</span>
+    </div>
+
+    <hr>
+
+    <h3>Concrete</h3>
+
+    <div class="result-row">
+      <span>Concrete Volume</span>
+      <span id="volume">0</span>
+      <span class="unit-volume">m³</span>
+    </div>
+
+    <div class="result-row">
+      <span>Dry Volume</span>
+      <span id="dryVolume">0</span>
+      <span class="unit-volume">m³</span>
+    </div>
+
+    <div class="result-row">
+      <span>Cement</span>
+      <span id="cement">0</span>
+      <span class="unit-volume">m³</span>
+    </div>
+
+    <div class="result-row">
+      <span>Sand</span>
+      <span id="sand">0</span>
+      <span class="unit-volume">m³</span>
+    </div>
+
+    <div class="result-row">
+      <span>Aggregate</span>
+      <span id="aggregate">0</span>
+      <span class="unit-volume">m³</span>
+    </div>
+
+    <div class="result-row">
+      <span>Cement Bags (50kg)</span>
+      <span id="bags">0</span>
+      <span>bags</span>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- UNIT SWITCH -->
+
+<div class="unit-switch">
+  <button onclick="setUnit('meter')">meter</button>
+  <button onclick="setUnit('foot')">foot</button>
+  <button onclick="setUnit('yard')">yard</button>
+</div>
+
+<script src="two-way-slab.js"></script>
+</body>
+</html>

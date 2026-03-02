@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prism Volume</title>
+
+  <style>
+    body{margin:0;font-family:Arial;background:#eef2f7;}
+
+    .header{
+    background:#0f2e63;
+    color:white;
+    padding:15px;
+    font-size:18px;
+    display:flex;
+    align-items:center;
+    }
+    .header span{cursor:pointer;margin-right:15px;font-size:22px;}
+
+    .container{padding:15px;}
+
+    .card{
+    border:2px solid #0f2e63;
+    border-radius:12px;
+    padding:20px;
+    margin-bottom:15px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    }
+
+    .section-title{
+    margin-top:15px;
+    color:#0f2e63;
+    font-weight:bold;
+    }
+
+    .input-group{
+    display:flex;
+    margin:8px 0;
+    }
+
+    .input-group input{
+    flex:1;
+    padding:8px;
+    border:2px solid #0f2e63;
+    border-radius:8px 0 0 8px;
+    outline:none;
+    }
+
+    .unit-box{
+    width:60px;
+    background:#0f2e63;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:0 8px 8px 0;
+    }
+
+    .buttons{
+    display:flex;
+    gap:10px;
+    margin:15px 0;
+    }
+
+    button{
+    flex:1;
+    padding:10px;
+    border:none;
+    border-radius:20px;
+    background:#0f2e63;
+    color:white;
+    cursor:pointer;
+    }
+
+    .table{
+    background:white;
+    border-radius:8px;
+    overflow:hidden;
+    margin-top:10px;
+    }
+
+    .table-header,.table-row{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    padding:10px;
+    }
+
+    .table-header{
+    background:#0f2e63;
+    color:white;
+    font-weight:bold;
+    }
+
+    .table-row{border-bottom:1px solid #ddd;}
+
+    .unit-switch{
+    display:flex;
+    margin-top:15px;
+    border:2px solid #0f2e63;
+    border-radius:8px;
+    overflow:hidden;
+    }
+
+    .unit-switch button{
+    flex:1;
+    background:white;
+    color:#0f2e63;
+    border:none;
+    padding:8px;
+    }
+
+    .unit-switch button.active{
+    background:#0f2e63;
+    color:white;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="header">
+  <span onclick="history.back()">←</span>
+  Prism Volume
+</div>
+
+<div class="container">
+
+  <div class="card">
+    <h3>Prism Volume</h3>
+  </div>
+
+  <div class="section-title">Dimensions</div>
+
+  <div class="input-group">
+    <input type="number" id="length" value="5">
+    <div class="unit-box" id="u1">m</div>
+  </div>
+
+  <div class="input-group">
+    <input type="number" id="width" value="5">
+    <div class="unit-box" id="u2">m</div>
+  </div>
+
+  <div class="input-group">
+    <input type="number" id="height" value="5">
+    <div class="unit-box" id="u3">m</div>
+  </div>
+
+  <div class="section-title">Materials</div>
+
+  <div class="input-group">
+    <input type="number" id="qty" value="1">
+    <div class="unit-box">nos</div>
+  </div>
+
+  <div class="input-group">
+    <input type="number" id="density" value="7850">
+    <div class="unit-box">kg/m³</div>
+  </div>
+
+  <div class="buttons">
+    <button onclick="calculate()">Calculate</button>
+    <button onclick="resetAll()">Reset</button>
+  </div>
+
+  <div class="table" id="resultBox" style="display:none;">
+    <div class="table-header">
+      <div>Material</div>
+      <div>Quantity</div>
+      <div>Unit</div>
+    </div>
+
+    <div class="table-row">
+      <div>Volume</div>
+      <div id="volRes">0</div>
+      <div id="volUnit">m³</div>
+    </div>
+
+    <div class="table-row">
+      <div>Total Weight</div>
+      <div id="wtRes">0</div>
+      <div id="wtUnit">kg</div>
+    </div>
+  </div>
+
+  <div class="unit-switch">
+    <button id="meterBtn" class="active" onclick="changeUnit('meter')">meter</button>
+    <button id="footBtn" onclick="changeUnit('foot')">foot</button>
+    <button id="yardBtn" onclick="changeUnit('yard')">yard</button>
+    <button id="brassBtn" onclick="changeUnit('brass')">brass</button>
+  </div>
+
+</div>
+
+<script>
+
+  let currentUnit="meter";
+  let baseVolume=0; // always stored in m³
+  let baseWeight=0; // always stored in kg
+
+  function calculate(){
+
+let l=parseFloat(document.getElementById("length").value) || 0;
+let w=parseFloat(document.getElementById("width").value) || 0;
+let h=parseFloat(document.getElementById("height").value) || 0;
+let q=parseFloat(document.getElementById("qty").value) || 0;
+let d=parseFloat(document.getElementById("density").value) || 0;
+
+if(currentUnit==="foot"){ l*=0.3048; w*=0.3048; h*=0.3048; }
+if(currentUnit==="yard"){ l*=0.9144; w*=0.9144; h*=0.9144; }
+if(currentUnit==="brass"){ l*=0.3048; w*=0.3048; h*=0.3048; }
+
+baseVolume = l*w*h*q;   // m³
+baseWeight = baseVolume*d; // kg
+
+updateResults();
+document.getElementById("resultBox").style.display="block";
+}
+
+
+  function updateResults(){
+
+  let vol=baseVolume;
+  let wt=baseWeight;
+
+  if(currentUnit==="foot"){
+  vol=baseVolume*35.3147;
+  wt=baseWeight*2.20462;
+  volUnit.innerHTML="ft³";
+  wtUnit.innerHTML="lb";
+  }
+
+  else if(currentUnit==="yard"){
+  vol=baseVolume*1.30795;
+  wt=baseWeight;
+  volUnit.innerHTML="yd³";
+  wtUnit.innerHTML="kg";
+  }
+
+  else if(currentUnit==="brass"){
+  vol=baseVolume/2.83;
+  wt=baseWeight;
+  volUnit.innerHTML="brass";
+  wtUnit.innerHTML="kg";
+  }
+
+  else{
+  volUnit.innerHTML="m³";
+  wtUnit.innerHTML="kg";
+  }
+document.getElementById("volRes").innerHTML=vol.toFixed(3);
+document.getElementById("wtRes").innerHTML=wt.toFixed(3);
+  }
+
+  function changeUnit(unit){
+
+  currentUnit=unit;
+
+  document.querySelectorAll(".unit-switch button")
+  .forEach(b=>b.classList.remove("active"));
+
+  document.getElementById(unit+"Btn").classList.add("active");
+
+  if(unit==="meter"){ u1.innerHTML="m"; u2.innerHTML="m"; u3.innerHTML="m"; }
+  if(unit==="foot"){ u1.innerHTML="ft"; u2.innerHTML="ft"; u3.innerHTML="ft"; }
+  if(unit==="yard"){ u1.innerHTML="yd"; u2.innerHTML="yd"; u3.innerHTML="yd"; }
+  if(unit==="brass"){ u1.innerHTML="ft"; u2.innerHTML="ft"; u3.innerHTML="ft"; }
+
+  if(baseVolume>0){ updateResults(); }
+  }
+
+  function resetAll(){
+  document.querySelectorAll("input").forEach(i=>i.value="");
+  resultBox.style.display="none";
+  baseVolume=0;
+  baseWeight=0;
+  }
+
+</script>
+
+</body>
+</html>

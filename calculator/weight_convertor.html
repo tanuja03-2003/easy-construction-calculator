@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weight Converter</title>
+
+  <style>
+    body{
+      margin:0;
+      font-family:Arial;
+      background:#eef2f7;
+    }
+
+    /* HEADER */
+    .header{
+      background:#0f2e63;
+      color:white;
+      padding:15px;
+      font-size:18px;
+      display:flex;
+      align-items:center;
+    }
+    .header span{
+      cursor:pointer;
+      margin-right:15px;
+      font-size:22px;
+    }
+
+    /* CONTAINER */
+    .container{
+      padding:15px;
+    }
+
+    /* INPUT */
+    .input-group{
+      display:flex;
+      margin:15px 0;
+    }
+
+    .input-group input{
+      flex:1;
+      padding:10px;
+      border:2px solid #0f2e63;
+      border-radius:8px 0 0 8px;
+      outline:none;
+      font-size:16px;
+    }
+
+    .unit-box{
+      width:70px;
+      background:#0f2e63;
+      color:white;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:0 8px 8px 0;
+      font-weight:bold;
+    }
+
+    /* TABLE */
+    .table{
+      background:white;
+      border-radius:10px;
+      overflow:hidden;
+      margin-top:15px;
+    }
+
+    .table-header{
+      background:#0f2e63;
+      color:white;
+      padding:12px;
+      font-weight:bold;
+    }
+
+    .table-row{
+      display:flex;
+      justify-content:space-between;
+      padding:12px;
+      border-bottom:1px solid #ddd;
+      font-size:15px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="header">
+  <span onclick="history.back()">←</span>
+  Weight Converter
+</div>
+
+<div class="container">
+
+  <!-- INPUT -->
+  <div class="input-group">
+    <input type="number" id="weightInput" value="1" oninput="convertWeight()">
+    <div class="unit-box">kg</div>
+  </div>
+
+  <!-- RESULT TABLE -->
+  <div class="table">
+    <div class="table-header">Conversion Value</div>
+
+    <div class="table-row"><span>Milligram</span><span id="mg"></span></div>
+    <div class="table-row"><span>Gram</span><span id="gram"></span></div>
+    <div class="table-row"><span>Kilogram</span><span id="kg"></span></div>
+    <div class="table-row"><span>Ounce</span><span id="oz"></span></div>
+    <div class="table-row"><span>Pound</span><span id="lb"></span></div>
+    <div class="table-row"><span>Ton (US)</span><span id="tonUS"></span></div>
+    <div class="table-row"><span>Ton (UK)</span><span id="tonUK"></span></div>
+    <div class="table-row"><span>Carat</span><span id="carat"></span></div>
+    <div class="table-row"><span>Stone (US)</span><span id="stoneUS"></span></div>
+    <div class="table-row"><span>Stone (UK)</span><span id="stoneUK"></span></div>
+  </div>
+
+</div>
+
+<script>
+
+  function convertWeight(){
+
+    let value = parseFloat(document.getElementById("weightInput").value);
+
+    if(isNaN(value)){
+      document.querySelectorAll(".table-row span:last-child")
+      .forEach(e=>e.innerText="0");
+      return;
+    }
+
+    // Base unit = KG
+
+    document.getElementById("mg").innerText = (value * 1000000).toFixed(2) + " mg";
+    document.getElementById("gram").innerText = (value * 1000).toFixed(2) + " g";
+    document.getElementById("kg").innerText = value.toFixed(3) + " kg";
+    document.getElementById("oz").innerText = (value * 35.27396).toFixed(5) + " oz";
+    document.getElementById("lb").innerText = (value * 2.20462).toFixed(5) + " lb";
+    document.getElementById("tonUS").innerText = (value * 0.00110231).toFixed(6) + " ton";
+    document.getElementById("tonUK").innerText = (value * 0.000984207).toFixed(6) + " ton";
+    document.getElementById("carat").innerText = (value * 5000).toFixed(2) + " ct";
+    document.getElementById("stoneUS").innerText = (value * 0.157473).toFixed(5) + " st";
+    document.getElementById("stoneUK").innerText = (value * 0.157473).toFixed(5) + " st";
+  }
+
+  convertWeight(); // default load
+
+</script>
+
+</body>
+</html>

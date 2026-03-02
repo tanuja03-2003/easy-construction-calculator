@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frequency Converter</title>
+
+  <style>
+    body{
+      margin:0;
+      font-family:Arial;
+      background:#eef2f7;
+    }
+
+    /* HEADER */
+    .header{
+      background:#0f2e63;
+      color:white;
+      padding:15px;
+      font-size:18px;
+      display:flex;
+      align-items:center;
+    }
+    .header span{
+      cursor:pointer;
+      margin-right:15px;
+      font-size:22px;
+    }
+
+    /* CONTAINER */
+    .container{
+      padding:15px;
+    }
+
+    /* INPUT */
+    .input-group{
+      display:flex;
+      margin:15px 0;
+    }
+
+    .input-group input{
+      flex:1;
+      padding:10px;
+      border:2px solid #0f2e63;
+      border-radius:8px 0 0 8px;
+      outline:none;
+      font-size:16px;
+    }
+
+    .unit-box{
+      width:80px;
+      background:#0f2e63;
+      color:white;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:0 8px 8px 0;
+      font-weight:bold;
+    }
+
+    /* TABLE */
+    .table{
+      background:white;
+      border-radius:10px;
+      overflow:hidden;
+      margin-top:15px;
+    }
+
+    .table-header{
+      background:#0f2e63;
+      color:white;
+      padding:12px;
+      font-weight:bold;
+    }
+
+    .table-row{
+      display:flex;
+      justify-content:space-between;
+      padding:12px;
+      border-bottom:1px solid #ddd;
+      font-size:15px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="header">
+  <span onclick="history.back()">←</span>
+  Frequency Converter
+</div>
+
+<div class="container">
+
+  <!-- INPUT -->
+  <div class="input-group">
+    <input type="number" id="freqInput" value="1" oninput="convertFrequency()">
+    <div class="unit-box">Hz</div>
+  </div>
+
+  <!-- RESULT TABLE -->
+  <div class="table">
+    <div class="table-header">Conversion Value</div>
+
+    <div class="table-row"><span>Hertz (Hz)</span><span id="hz"></span></div>
+    <div class="table-row"><span>Kilohertz (kHz)</span><span id="khz"></span></div>
+    <div class="table-row"><span>Megahertz (MHz)</span><span id="mhz"></span></div>
+    <div class="table-row"><span>Gigahertz (GHz)</span><span id="ghz"></span></div>
+  </div>
+
+</div>
+
+<script>
+
+  function convertFrequency(){
+
+    let value = parseFloat(document.getElementById("freqInput").value);
+
+    if(isNaN(value)){
+      document.querySelectorAll(".table-row span:last-child")
+      .forEach(e=>e.innerText="0");
+      return;
+    }
+
+    // Base unit = Hz
+    let hz = value;
+
+    let khz = hz / 1000;
+    let mhz = hz / 1000000;
+    let ghz = hz / 1000000000;
+
+    document.getElementById("hz").innerText = hz.toFixed(3);
+    document.getElementById("khz").innerText = khz.toFixed(6);
+    document.getElementById("mhz").innerText = mhz.toFixed(9);
+    document.getElementById("ghz").innerText = ghz.toFixed(12);
+  }
+
+  convertFrequency(); // load default
+
+</script>
+
+</body>
+</html>

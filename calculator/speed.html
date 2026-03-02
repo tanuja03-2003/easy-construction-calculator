@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Speed Converter</title>
+
+  <style>
+    body{
+      margin:0;
+      font-family:Arial;
+      background:#eef2f7;
+    }
+
+    /* HEADER */
+    .header{
+      background:#0f2e63;
+      color:white;
+      padding:15px;
+      font-size:18px;
+      display:flex;
+      align-items:center;
+    }
+    .header span{
+      cursor:pointer;
+      margin-right:15px;
+      font-size:22px;
+    }
+
+    /* CONTAINER */
+    .container{
+      padding:15px;
+    }
+
+    /* INPUT */
+    .input-group{
+      display:flex;
+      margin:15px 0;
+    }
+
+    .input-group input{
+      flex:1;
+      padding:10px;
+      border:2px solid #0f2e63;
+      border-radius:8px 0 0 8px;
+      outline:none;
+      font-size:16px;
+    }
+
+    .unit-box{
+      width:80px;
+      background:#0f2e63;
+      color:white;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:0 8px 8px 0;
+      font-weight:bold;
+    }
+
+    /* TABLE */
+    .table{
+      background:white;
+      border-radius:10px;
+      overflow:hidden;
+      margin-top:15px;
+    }
+
+    .table-header{
+      background:#0f2e63;
+      color:white;
+      padding:12px;
+      font-weight:bold;
+    }
+
+    .table-row{
+      display:flex;
+      justify-content:space-between;
+      padding:12px;
+      border-bottom:1px solid #ddd;
+      font-size:15px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="header">
+  <span onclick="history.back()">←</span>
+  Speed Converter
+</div>
+
+<div class="container">
+
+  <!-- INPUT -->
+  <div class="input-group">
+    <input type="number" id="speedInput" value="1" oninput="convertSpeed()">
+    <div class="unit-box">km/hr</div>
+  </div>
+
+  <!-- RESULT TABLE -->
+  <div class="table">
+    <div class="table-header">Conversion Value</div>
+
+    <div class="table-row"><span>Meter/second (m/s)</span><span id="ms"></span></div>
+    <div class="table-row"><span>Kilometer/hour (km/hr)</span><span id="kmh"></span></div>
+    <div class="table-row"><span>Miles/hour (mph)</span><span id="mph"></span></div>
+    <div class="table-row"><span>Knot</span><span id="knot"></span></div>
+  </div>
+
+</div>
+
+<script>
+
+  function convertSpeed(){
+
+    let value = parseFloat(document.getElementById("speedInput").value);
+
+    if(isNaN(value)){
+      document.querySelectorAll(".table-row span:last-child")
+      .forEach(e=>e.innerText="0");
+      return;
+    }
+
+    // Base unit = km/hr
+    let kmh = value;
+
+    let ms = kmh * 0.277778;      // 1 km/h = 0.277778 m/s
+    let mph = kmh * 0.621371;     // 1 km/h = 0.621371 mph
+    let knot = kmh * 0.539957;    // 1 km/h = 0.539957 knot
+
+    document.getElementById("ms").innerText = ms.toFixed(5);
+    document.getElementById("kmh").innerText = kmh.toFixed(3);
+    document.getElementById("mph").innerText = mph.toFixed(5);
+    document.getElementById("knot").innerText = knot.toFixed(5);
+
+  }
+
+  convertSpeed(); // load default
+
+</script>
+
+</body>
+</html>

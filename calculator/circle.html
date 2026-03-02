@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Circle Area Calculator</title>
+
+  <style>
+
+    /* ===========================
+       GLOBAL
+    =========================== */
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      font-family: "Segoe UI", sans-serif;
+      background:#f1f3f6;
+    }
+
+    /* ===========================
+       HEADER
+    =========================== */
+    .header{
+      background:#0b2c5f;
+      color:white;
+      padding:15px;
+      display:flex;
+      align-items:center;
+    }
+
+    .back-btn{
+      color:white;
+      text-decoration:none;
+      font-size:22px;
+      margin-right:15px;
+    }
+
+    .header h2{
+      margin:0;
+      font-weight:500;
+    }
+
+    /* ===========================
+       CONTAINER
+    =========================== */
+    .container{
+      padding:15px;
+    }
+
+    /* TOP CARD */
+    .top-card{
+      border:3px solid #0b2c5f;
+      border-radius:12px;
+      padding:15px;
+      display:flex;
+      align-items:center;
+      gap:15px;
+      background:#fff;
+    }
+
+    .circle-img{
+      width:70px;
+      height:70px;
+      border-radius:50%;
+      background:gold;
+      border:3px solid #0b2c5f;
+    }
+
+    .top-card h3{
+      margin:0;
+      color:#0b2c5f;
+    }
+
+    /* ===========================
+       INPUT SECTION
+    =========================== */
+    .section-title{
+      margin-top:20px;
+      font-weight:600;
+      color:#0b2c5f;
+    }
+
+    .input-row{
+      display:flex;
+      gap:10px;
+      margin-top:8px;
+    }
+
+    .input-row input{
+      flex:1;
+      padding:10px;
+      border-radius:8px;
+      border:2px solid #0b2c5f;
+    }
+
+    .unit-box{
+      width:60px;
+      background:#0b2c5f;
+      color:white;
+      border-radius:8px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:bold;
+    }
+
+    /* ===========================
+       BUTTONS
+    =========================== */
+    .button-row{
+      display:flex;
+      justify-content:space-between;
+      margin-top:15px;
+      gap:10px;
+    }
+
+    .btn{
+      flex:1;
+      padding:10px;
+      border:none;
+      border-radius:25px;
+      background:#0b2c5f;
+      color:white;
+      font-weight:600;
+      cursor:pointer;
+    }
+
+    .btn:hover{
+      background:#123c7a;
+    }
+
+    /* ===========================
+       RESULT TABLE
+    =========================== */
+    .result-section{
+      margin-top:25px;
+      display:none;
+    }
+
+    .result-table{
+      width:100%;
+      border-collapse:collapse;
+      background:white;
+    }
+
+    .result-table th{
+      background:#0b2c5f;
+      color:white;
+      padding:10px;
+    }
+
+    .result-table td{
+      padding:10px;
+      border-bottom:1px solid #ddd;
+    }
+
+    /* ===========================
+       UNIT SWITCHER
+    =========================== */
+    .unit-switcher{
+      margin-top:20px;
+      display:flex;
+      justify-content:center;
+      gap:5px;
+    }
+
+    .unit-switcher button{
+      padding:8px 14px;
+      border:none;
+      border-radius:6px;
+      background:#ccc;
+      cursor:pointer;
+    }
+
+    .unit-switcher button.active{
+      background:#0b2c5f;
+      color:white;
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <a href="area.html" class="back-btn">←</a>
+  <h2>Circle Area</h2>
+</div>
+
+<div class="container">
+
+  <!-- TOP CARD -->
+  <div class="top-card">
+    <div class="circle-img"></div>
+    <h3>Calculation of Circle Area</h3>
+  </div>
+
+  <!-- INPUT -->
+  <div class="section-title">Dimensions :</div>
+
+  <div class="input-row">
+    <input type="number" id="radius" placeholder="Enter Radius">
+    <div class="unit-box" id="inputUnit">m</div>
+  </div>
+
+  <!-- BUTTONS -->
+  <div class="button-row">
+    <button class="btn" onclick="calculate()">Calculate</button>
+    <button class="btn" onclick="resetFields()">Reset</button>
+  </div>
+
+  <!-- RESULT -->
+  <div class="result-section" id="resultSection">
+    <table class="result-table">
+      <tr>
+        <th>Material</th>
+        <th>Quantity</th>
+        <th>Unit</th>
+      </tr>
+      <tr>
+        <td>Area</td>
+        <td id="areaValue">0</td>
+        <td id="areaUnit">m²</td>
+      </tr>
+      <tr>
+        <td>Perimeter</td>
+        <td id="periValue">0</td>
+        <td id="periUnit">meter</td>
+      </tr>
+    </table>
+  </div>
+
+  <!-- UNIT SWITCHER -->
+  <div class="unit-switcher">
+    <button class="active" onclick="setUnit('meter',this)">meter</button>
+    <button onclick="setUnit('foot',this)">foot</button>
+    <button onclick="setUnit('yard',this)">yard</button>
+    <button onclick="setUnit('brass',this)">brass</button>
+  </div>
+
+</div>
+<script>
+
+  let currentUnit = "meter";
+
+  function setUnit(unit, btn) {
+
+      currentUnit = unit;
+
+      // Button highlight
+      document.querySelectorAll(".unit-switcher button")
+          .forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      calculate(); // Recalculate automatically on switch
+  }
+
+  function calculate() {
+
+      let r = parseFloat(document.getElementById("radius").value);
+
+      if (isNaN(r) || r <= 0) return;
+
+      // Always convert input to meters first
+      let rMeter = r;
+
+      if (currentUnit === "foot") rMeter = r * 0.3048;
+      if (currentUnit === "yard") rMeter = r * 0.9144;
+
+      // Base calculations in meters
+      let areaMeter = Math.PI * rMeter * rMeter;
+      let periMeter = 2 * Math.PI * rMeter;
+
+      let finalArea = areaMeter;
+      let finalPeri = periMeter;
+      let areaUnit = "m²";
+      let periUnit = "meter";
+
+      if (currentUnit === "foot") {
+          finalArea = areaMeter * 10.7639;
+          finalPeri = periMeter * 3.28084;
+          areaUnit = "ft²";
+          periUnit = "foot";
+      }
+
+      if (currentUnit === "yard") {
+          finalArea = areaMeter * 1.19599;
+          finalPeri = periMeter * 1.09361;
+          areaUnit = "yd²";
+          periUnit = "yard";
+      }
+
+      if (currentUnit === "meter") {
+          areaUnit = "m²";
+          periUnit = "meter";
+      }
+
+      // Update table
+      document.getElementById("areaValue").innerText = finalArea.toFixed(3);
+      document.getElementById("periValue").innerText = finalPeri.toFixed(3);
+      document.getElementById("areaUnit").innerText = areaUnit;
+      document.getElementById("periUnit").innerText = periUnit;
+
+      document.getElementById("resultSection").style.display = "block";
+  }
+
+  function resetFields() {
+      document.getElementById("radius").value = "";
+      document.getElementById("resultSection").style.display = "none";
+  }
+
+</script>
+</body>
+</html>

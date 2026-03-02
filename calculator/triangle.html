@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Triangle Area</title>
+
+  <style>
+    body{
+      margin:0;
+      font-family:Arial, sans-serif;
+      background:#eef2f7;
+    }
+
+    /* ===== TOP BAR ===== */
+    .topbar{
+      background:#0b2c6f;
+      color:white;
+      padding:15px;
+      display:flex;
+      align-items:center;
+    }
+    .topbar a{
+      color:white;
+      text-decoration:none;
+      font-size:20px;
+      margin-right:15px;
+    }
+    .topbar h2{
+      margin:0;
+      font-weight:500;
+    }
+
+    /* ===== CARD ===== */
+    .card{
+      margin:20px;
+      padding:15px;
+      background:white;
+      border-radius:12px;
+      border:3px solid #0b2c6f;
+      text-align:center;
+    }
+
+    /* ===== INPUTS ===== */
+    .section{
+      margin:20px;
+    }
+
+    .input-group{
+      display:flex;
+      margin-bottom:15px;
+    }
+
+    .input-group input{
+      flex:1;
+      padding:10px;
+      border:2px solid #0b2c6f;
+      border-radius:8px 0 0 8px;
+      font-size:16px;
+    }
+
+    .unit-box{
+      width:60px;
+      background:#0b2c6f;
+      color:white;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:0 8px 8px 0;
+      font-size:14px;
+    }
+
+    /* ===== BUTTONS ===== */
+    .btns{
+      display:flex;
+      justify-content:space-between;
+      margin:20px;
+    }
+
+    button{
+      flex:1;
+      margin:5px;
+      padding:10px;
+      border:none;
+      border-radius:20px;
+      background:#0b2c6f;
+      color:white;
+      font-size:16px;
+      cursor:pointer;
+    }
+
+    /* ===== RESULT TABLE ===== */
+    .table{
+      margin:20px;
+      background:white;
+      border-radius:8px;
+      overflow:hidden;
+    }
+
+    .table-header{
+      background:#0b2c6f;
+      color:white;
+      display:flex;
+      padding:10px;
+      font-weight:bold;
+    }
+
+    .row{
+      display:flex;
+      padding:10px;
+      border-bottom:1px solid #ddd;
+    }
+
+    .col{
+      flex:1;
+    }
+
+    /* ===== UNIT SWITCHER ===== */
+    .switcher{
+      display:flex;
+      justify-content:center;
+      margin:20px;
+    }
+
+    .switcher button{
+      background:#ccc;
+      color:black;
+      border-radius:6px;
+      margin:5px;
+      padding:8px 12px;
+    }
+
+    .switcher button.active{
+      background:#0b2c6f;
+      color:white;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ===== TOP BAR ===== -->
+<div class="topbar">
+  <a href="area.html">←</a>
+  <h2>Triangle Area</h2>
+</div>
+
+<!-- ===== IMAGE CARD ===== -->
+<div class="card">
+  <h3>Calculation of Triangle Area</h3>
+</div>
+
+<!-- ===== INPUT SECTION ===== -->
+<div class="section">
+
+  <div class="input-group">
+    <input type="number" id="base" placeholder="Base b">
+    <div class="unit-box" id="unit1">m</div>
+  </div>
+
+  <div class="input-group">
+    <input type="number" id="height" placeholder="Height h">
+    <div class="unit-box" id="unit2">m</div>
+  </div>
+
+</div>
+
+<!-- ===== BUTTONS ===== -->
+<div class="btns">
+  <button onclick="calculate()">Calculate</button>
+  <button onclick="resetValues()">Reset</button>
+</div>
+
+<!-- ===== RESULT TABLE ===== -->
+<div class="table">
+  <div class="table-header">
+    <div class="col">Material</div>
+    <div class="col">Quantity</div>
+    <div class="col">Unit</div>
+  </div>
+
+  <div class="row">
+    <div class="col">Area</div>
+    <div class="col" id="areaResult">0</div>
+    <div class="col" id="areaUnit">m²</div>
+  </div>
+
+  <div class="row">
+    <div class="col">Perimeter</div>
+    <div class="col" id="periResult">0</div>
+    <div class="col" id="periUnit">meter</div>
+  </div>
+</div>
+
+<!-- ===== UNIT SWITCHER ===== -->
+<div class="switcher">
+  <button class="active" onclick="setUnit('meter',this)">meter</button>
+  <button onclick="setUnit('foot',this)">foot</button>
+  <button onclick="setUnit('yard',this)">yard</button>
+  <button onclick="setUnit('brass',this)">brass</button>
+</div>
+
+<script>
+  let currentUnit="meter";
+
+  function setUnit(unit,btn){
+    currentUnit=unit;
+
+    document.querySelectorAll(".switcher button").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+
+    let u="m";
+    if(unit=="foot") u="ft";
+    if(unit=="yard") u="yd";
+
+    document.getElementById("unit1").innerText=u;
+    document.getElementById("unit2").innerText=u;
+
+    document.getElementById("areaUnit").innerText =
+      unit=="meter" ? "m²" :
+      unit=="foot" ? "ft²" :
+      unit=="yard" ? "yd²" :
+      "brass";
+
+    document.getElementById("periUnit").innerText = u;
+  }
+
+  function calculate(){
+    let b=parseFloat(document.getElementById("base").value);
+    let h=parseFloat(document.getElementById("height").value);
+
+    if(!b || !h){
+      alert("Enter values");
+      return;
+    }
+
+    // convert to meters internally
+    if(currentUnit=="foot"){ b*=0.3048; h*=0.3048; }
+    if(currentUnit=="yard"){ b*=0.9144; h*=0.9144; }
+
+    let area=0.5*b*h;
+    let side=Math.sqrt((b/2)*(b/2)+h*h);
+    let perimeter=b + 2*side;
+
+    // convert back
+    if(currentUnit=="foot"){
+      area/=0.092903;
+      perimeter/=0.3048;
+    }
+    if(currentUnit=="yard"){
+      area/=0.836127;
+      perimeter/=0.9144;
+    }
+
+    if(currentUnit=="brass"){
+      area/=9.2903;
+    }
+
+    document.getElementById("areaResult").innerText=area.toFixed(3);
+    document.getElementById("periResult").innerText=perimeter.toFixed(3);
+  }
+
+  function resetValues(){
+    document.getElementById("base").value="";
+    document.getElementById("height").value="";
+    document.getElementById("areaResult").innerText="0";
+    document.getElementById("periResult").innerText="0";
+  }
+</script>
+
+</body>
+</html>
