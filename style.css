@@ -2323,3 +2323,7 @@ button {
     font-weight: bold;
     color: #0f2d5c;
 }
+.unit-switcher button.active {
+  background: #0f2e63;
+  color: white;
+}

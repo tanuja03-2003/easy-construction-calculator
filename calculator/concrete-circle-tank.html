@@ -9,7 +9,6 @@
 
 <body class="page-calculator concrete-ui">
 
-<!-- ===== TOP BAR ===== -->
 <header class="top-bar">
   <a class="back-btn" href="concrete.html">←</a>
   <h1>Calculation of Circle Tank Concrete</h1>
@@ -18,29 +17,24 @@
 
 <main class="main-content">
 
-  <!-- ===== TITLE CARD ===== -->
   <div class="title-card">
     <span class="title-icon">🛢️</span>
     <span class="title-text">Circle Tank Concrete</span>
   </div>
 
-  <!-- ===== INPUTS ===== -->
   <div class="form-card">
     <label class="section-label">Tank Dimensions</label>
 
-    <!-- Outside Diameter -->
     <div class="input-with-unit">
       <input type="number" id="tankDiameter" value="5">
       <span class="unit-box">m</span>
     </div>
 
-    <!-- Height -->
     <div class="input-with-unit" style="margin-top:12px">
       <input type="number" id="tankHeight" value="5">
       <span class="unit-box">m</span>
     </div>
 
-    <!-- Thickness -->
     <div class="input-with-unit" style="margin-top:12px">
       <input type="number" id="tankThickness" value="0.2">
       <span class="unit-box">m</span>
@@ -49,7 +43,6 @@
 
   <div class="divider"></div>
 
-  <!-- ===== CONCRETE RATIO ===== -->
   <div class="form-card">
     <label class="section-label">Concrete Ratio</label>
 
@@ -82,14 +75,11 @@
 
   <div class="divider"></div>
 
-  <!-- ===== ACTION BUTTONS ===== -->
   <div class="action-row">
-    <button class="btn light">📤 Share</button>
     <button class="btn primary" onclick="calculateCircleTank()">🧮 Calculate</button>
     <button class="btn light" onclick="resetResults()">🔄 Reset</button>
   </div>
 
-  <!-- ===== RESULTS ===== -->
   <div class="result-card">
     <div class="result-header">
       <span>Material</span>
@@ -101,14 +91,129 @@
 
 </main>
 
-<!-- ===== UNIT SWITCHER ===== -->
 <div class="unit-switcher">
-  <button onclick="setUnit('m')">meter</button>
-  <button onclick="setUnit('ft')">foot</button>
-  <button onclick="setUnit('yd')">yard</button>
-  <button onclick="setUnit('brass')">brass</button>
+  <button class="active" onclick="setUnit('m', this)">meter</button>
+  <button onclick="setUnit('ft', this)">foot</button>
+  <button onclick="setUnit('yd', this)">yard</button>
+  <button onclick="setUnit('brass', this)">brass</button>
 </div>
 
-<script src="concrete.js"></script>
+<script>
+
+  /* ================= GLOBAL STORAGE ================= */
+  let currentUnit = "m";
+  let lastResults = null;
+
+  const UNIT_FACTORS = {
+    m: 1,
+    ft: 35.3147,
+    yd: 1.30795,
+    brass: 0.3531
+  };
+
+  /* ================= UNIT SWITCH ================= */
+  function setUnit(unit, btn) {
+
+    currentUnit = unit;
+
+    document.querySelectorAll(".unit-switcher button")
+      .forEach(b => b.classList.remove("active"));
+
+    btn.classList.add("active");
+
+    if (lastResults !== null) {
+      renderResults();
+    }
+  }
+
+  /* ================= CALCULATE ================= */
+  function calculateCircleTank() {
+
+    const D = parseFloat(document.getElementById("tankDiameter").value) || 0;
+    const H = parseFloat(document.getElementById("tankHeight").value) || 0;
+    const t = parseFloat(document.getElementById("tankThickness").value) || 0;
+
+    const cementRatio = parseFloat(document.getElementById("cementRatio").value) || 1;
+    const sandRatio = parseFloat(document.getElementById("sandRatio").value) || 2;
+    const aggRatio = parseFloat(document.getElementById("aggRatio").value) || 4;
+    const dryFactor = parseFloat(document.getElementById("dryFactor").value) || 1.54;
+    const waterRatio = parseFloat(document.getElementById("waterRatio").value) || 0.5;
+
+    if (!D || !H || !t) return;
+
+    const R = D / 2;
+    const r = R - t;
+
+    if (r <= 0) {
+      alert("Thickness too large!");
+      return;
+    }
+
+    const volumeM3 = Math.PI * H * (R*R - r*r);
+    const dryVolumeM3 = volumeM3 * dryFactor;
+
+    const totalRatio = cementRatio + sandRatio + aggRatio;
+
+    const cementM3 = (cementRatio / totalRatio) * dryVolumeM3;
+    const sandM3 = (sandRatio / totalRatio) * dryVolumeM3;
+    const aggM3 = (aggRatio / totalRatio) * dryVolumeM3;
+
+    const cementBags = (cementM3 * 1440) / 50;
+    const water = cementM3 * 1000 * waterRatio;
+
+    lastResults = {
+      volumeM3,
+      dryVolumeM3,
+      cementM3,
+      sandM3,
+      aggM3,
+      cementBags,
+      water
+    };
+
+    renderResults();
+  }
+
+  /* ================= RENDER ================= */
+  function renderResults() {
+
+    if (!lastResults) return;
+
+    const factor = UNIT_FACTORS[currentUnit];
+
+    const unitLabel =
+      currentUnit === "m" ? "m³" :
+      currentUnit === "ft" ? "ft³" :
+      currentUnit === "yd" ? "yd³" : "brass";
+
+    const rows = [
+      ["Volume", (lastResults.volumeM3 * factor).toFixed(3), unitLabel],
+      ["Dry Volume", (lastResults.dryVolumeM3 * factor).toFixed(3), unitLabel],
+      ["Cement", (lastResults.cementM3 * factor).toFixed(3), unitLabel],
+      ["Sand", (lastResults.sandM3 * factor).toFixed(3), unitLabel],
+      ["Aggregate", (lastResults.aggM3 * factor).toFixed(3), unitLabel],
+      ["Water", lastResults.water.toFixed(0), "Liter"],
+      ["Cement Bags", lastResults.cementBags.toFixed(2), "bags"]
+    ];
+
+    const container = document.getElementById("resultRows");
+    container.innerHTML = "";
+
+    rows.forEach(r => {
+      const div = document.createElement("div");
+      div.className = "result-row";
+      div.innerHTML = `<span>${r[0]}</span><span>${r[1]}</span><span>${r[2]}</span>`;
+      container.appendChild(div);
+    });
+  }
+
+  /* ================= RESET ================= */
+  function resetResults() {
+    lastResults = null;
+    document.getElementById("resultRows").innerHTML = "";
+  }
+
+</script>
+
 </body>
 </html>

@@ -9,7 +9,6 @@
 
 <body class="page-calculator concrete-ui">
 
-<!-- ===== TOP BAR ===== -->
 <header class="top-bar">
     <a class="back-btn" href="concrete.html">←</a>
     <h1>Calculation of Round Column Concrete</h1>
@@ -18,23 +17,20 @@
 
 <main class="main-content">
 
-    <!-- ===== TITLE CARD ===== -->
     <div class="title-card">
         <span class="title-icon">⚪</span>
         <span class="title-text">Round Column Concrete</span>
     </div>
 
-    <!-- ===== INPUTS ===== -->
+    <!-- INPUTS -->
     <div class="form-card">
         <label class="section-label">Column Dimensions</label>
 
-        <!-- Diameter -->
         <div class="input-with-unit">
             <input type="number" id="diameter" value="0.5" />
             <span class="unit-box">m</span>
         </div>
 
-        <!-- Height -->
         <div class="input-with-unit" style="margin-top:12px">
             <input type="number" id="height" value="3" />
             <span class="unit-box">m</span>
@@ -43,7 +39,7 @@
 
     <div class="divider"></div>
 
-    <!-- ===== CONCRETE RATIO ===== -->
+    <!-- RATIO -->
     <div class="form-card">
         <label class="section-label">Concrete Ratio</label>
 
@@ -79,14 +75,13 @@
 
     <div class="divider"></div>
 
-    <!-- ===== ACTION BUTTONS ===== -->
+    <!-- BUTTONS -->
     <div class="action-row">
-        <button class="btn light">📤 Share</button>
         <button class="btn primary" onclick="calculateRound()">🧮 Calculate</button>
         <button class="btn light" onclick="resetResults()">🔄 Reset</button>
     </div>
 
-    <!-- ===== RESULTS ===== -->
+    <!-- RESULTS -->
     <div class="result-card">
         <div class="result-header">
             <span>Material</span>
@@ -98,12 +93,12 @@
 
 </main>
 
-<!-- ===== UNIT SWITCHER ===== -->
+<!-- UNIT SWITCHER -->
 <div class="unit-switcher">
-    <button onclick="setUnit('m')">meter</button>
-    <button onclick="setUnit('ft')">foot</button>
-    <button onclick="setUnit('yd')">yard</button>
-    <button onclick="setUnit('brass')">brass</button>
+    <button class="active" onclick="setUnit('m', this)">meter</button>
+    <button onclick="setUnit('ft', this)">foot</button>
+    <button onclick="setUnit('yd', this)">yard</button>
+    <button onclick="setUnit('brass', this)">brass</button>
 </div>
 
 <script src="concrete.js"></script>

@@ -135,16 +135,43 @@
 <script>
   let currentUnit = "m3";
 
-  function calculate() {
-    const volume = Number(document.getElementById("volumeInput").value);
-    if (!volume) return;
+  // Convert input to cubic meter
+  function convertToM3(value) {
+    if (currentUnit === "ft3") return value * 0.0283168;
+    if (currentUnit === "yd3") return value * 0.764555;
+    if (currentUnit === "brass") return value * 2.83168;
+    return value; // already m3
+  }
 
-    const dryVolume = volume * 1.54;
-    const cement = dryVolume * (1 / 7);
-    const sand = dryVolume * (2 / 7);
-    const aggregate = dryVolume * (4 / 7);
-    const cementBags = (cement * 1440) / 50;
+  // Convert cubic meter back to selected unit (for display)
+  function convertFromM3(value) {
+    if (currentUnit === "ft3") return value / 0.0283168;
+    if (currentUnit === "yd3") return value / 0.764555;
+    if (currentUnit === "brass") return value / 2.83168;
+    return value;
+  }
+
+  function calculateConcreteVolume() {
+
+    let inputValue = Number(document.getElementById("volumeInput").value);
+    if (!inputValue || inputValue <= 0) return;
+
+    // Convert to m3 internally
+    let volumeM3 = convertToM3(inputValue);
+
+    const dryVolumeM3 = volumeM3 * 1.54;
+    const cementM3 = dryVolumeM3 * (1 / 7);
+    const sandM3 = dryVolumeM3 * (2 / 7);
+    const aggregateM3 = dryVolumeM3 * (4 / 7);
+    const cementBags = (cementM3 * 1440) / 50;
     const water = cementBags * 25;
+
+    // Convert results back to selected unit
+    const volume = convertFromM3(volumeM3);
+    const dryVolume = convertFromM3(dryVolumeM3);
+    const cement = convertFromM3(cementM3);
+    const sand = convertFromM3(sandM3);
+    const aggregate = convertFromM3(aggregateM3);
 
     const rows = [
       ["Volume", volume, unitLabel()],
@@ -180,7 +207,14 @@
   function changeUnit(unit) {
     currentUnit = unit;
     document.getElementById("volumeUnit").innerText = unitLabel();
-    calculate();
+
+    // Highlight active button (optional nice UX)
+    document.querySelectorAll(".unit-switcher button")
+      .forEach(btn => btn.classList.remove("active"));
+
+    event.target.classList.add("active");
+
+    calculateConcreteVolume(); // 🔥 re-calculate properly
   }
 
   function resetResults() {
