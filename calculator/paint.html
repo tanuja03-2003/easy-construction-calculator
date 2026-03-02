@@ -1,30 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Calculation of Paint</title>
-  <link rel="stylesheet" href="../style.css" />
+
+  <style>
+    body{
+      margin:0;
+      font-family:Arial;
+      background:#eef2f6;
+    }
+
+    /* ===== TOP BAR ===== */
+    .top-bar{
+      background:#16365d;
+      color:white;
+      padding:15px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      font-weight:bold;
+    }
+
+    .back-btn{
+      position:absolute;
+      left:15px;
+      text-decoration:none;
+      color:white;
+      font-size:18px;
+    }
+
+    /* ===== MAIN ===== */
+    .container{
+      padding:15px;
+      padding-bottom:120px; /* important to avoid overlap */
+    }
+
+    .title-card{
+      background:white;
+      padding:15px;
+      border-radius:10px;
+      text-align:center;
+      margin-bottom:15px;
+      font-weight:bold;
+    }
+
+    .input-row{
+      margin-bottom:12px;
+    }
+
+    .input-group{
+      display:flex;
+    }
+
+    input{
+      flex:1;
+      padding:8px;
+      border:1px solid #ccc;
+      border-radius:6px 0 0 6px;
+    }
+
+    .unit-box{
+      background:#16365d;
+      color:white;
+      padding:8px 12px;
+      border-radius:0 6px 6px 0;
+    }
+
+    .two-col{
+      display:flex;
+      gap:10px;
+    }
+
+    .two-col input{
+      border-radius:6px;
+    }
+
+    .divider{
+      height:1px;
+      background:#ccc;
+      margin:15px 0;
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn-row{
+      display:flex;
+      justify-content:space-between;
+      margin:15px 0;
+    }
+
+    button{
+      padding:8px 12px;
+      border:none;
+      border-radius:6px;
+      cursor:pointer;
+    }
+
+    .btn.primary{
+      background:#16365d;
+      color:white;
+    }
+
+    .btn.light{
+      background:#ddd;
+    }
+
+    /* ===== RESULTS ===== */
+    .result-card{
+      background:white;
+      border-radius:10px;
+      padding:10px;
+    }
+
+    .result-header{
+      display:flex;
+      justify-content:space-between;
+      font-weight:bold;
+      border-bottom:1px solid #ddd;
+      padding-bottom:8px;
+    }
+
+    .result-row{
+      display:flex;
+      justify-content:space-between;
+      padding:8px 0;
+      border-bottom:1px solid #eee;
+    }
+
+    /* ===== UNIT SWITCHER ===== */
+    .unit-switcher{
+      position:fixed;
+      bottom:0;
+      left:0;
+      right:0;
+      background:white;
+      padding:10px;
+      display:flex;
+      justify-content:space-around;
+      box-shadow:0 -2px 10px rgba(0,0,0,0.1);
+    }
+
+    .unit-switcher button{
+      background:#16365d;
+      color:white;
+      font-size:12px;
+    }
+
+    .unit-switcher button.active{
+      background:orange;
+    }
+  </style>
 </head>
 
-<body class="calculator-page">
+<body>
 
-<!-- ===== TOP BAR ===== -->
 <header class="top-bar">
   <a href="../index.html" class="back-btn">⬅</a>
-  <h1>Calculation of Paint</h1>
-  <span class="top-emoji">🎨</span>
+  Calculation of Paint
 </header>
 
 <main class="container">
 
-  <!-- TITLE CARD -->
   <div class="title-card">
-    <span class="big-emoji">🖌️</span>
-    <span>Calculation of Paint</span>
+    🖌️ Calculation of Paint
   </div>
 
-  <!-- DIMENSIONS -->
   <h3>Dimensions of Wall :</h3>
 
   <div class="input-row">
@@ -53,7 +195,6 @@
 
   <div class="divider"></div>
 
-  <!-- COATS -->
   <h3>No of coats & per liter area :</h3>
 
   <div class="two-col">
@@ -65,7 +206,6 @@
     <div>
       <label>Area covered per liter</label>
       <input type="number" id="coverage" value="50">
-      <small>m² per liter</small>
     </div>
   </div>
 
@@ -73,20 +213,18 @@
     <label>Paint Price</label>
     <div class="input-group">
       <input type="number" id="price" value="0">
-      <span class="unit-box">₹ / liter</span>
+      <span class="unit-box">₹/liter</span>
     </div>
   </div>
 
   <div class="divider"></div>
 
-  <!-- BUTTONS -->
   <div class="btn-row">
     <button class="btn light">📤 Share</button>
     <button class="btn primary" onclick="calculatePaint()">🧮 Calculate</button>
     <button class="btn light" onclick="resetPaint()">🔄 Reset</button>
   </div>
 
-  <!-- RESULT -->
   <div class="result-card">
     <div class="result-header">
       <span>Material</span>
@@ -111,19 +249,67 @@
       <span id="rCost">0</span>
       <span>₹</span>
     </div>
+
   </div>
 
 </main>
 
-<!-- UNIT SWITCHER -->
 <div class="unit-switcher">
-  <button onclick="setUnit('m')">meter</button>
-  <button onclick="setUnit('ft')">foot</button>
-  <button onclick="setUnit('yd')">yard</button>
-  <button onclick="setUnit('brass')">brass</button>
+  <button onclick="setUnit('m',this)" class="active">meter</button>
+  <button onclick="setUnit('ft',this)">foot</button>
+  <button onclick="setUnit('yd',this)">yard</button>
+  <button onclick="setUnit('brass',this)">brass</button>
 </div>
+<script>
+  let currentUnit = "m";
 
-<script src="paint.js"></script>
+  function setUnit(unit, btn) {
+    currentUnit = unit;
 
+    document.querySelectorAll(".unit-switcher button")
+      .forEach(b => b.classList.remove("active"));
+
+    if (btn) btn.classList.add("active");
+
+    calculatePaint();
+  }
+
+  function calculatePaint() {
+
+    const L = parseFloat(document.getElementById("length").value) || 0;
+    const W = parseFloat(document.getElementById("width").value) || 0;
+    const subtractArea = parseFloat(document.getElementById("subtract").value) || 0;
+    const coats = parseFloat(document.getElementById("coats").value) || 1;
+    const coverage = parseFloat(document.getElementById("coverage").value) || 1;
+    const price = parseFloat(document.getElementById("price").value) || 0;
+
+    let area = (L * W) - subtractArea;
+    if (area < 0) area = 0;
+
+    // Unit Conversion
+    if (currentUnit === "ft") area *= 10.7639;
+    if (currentUnit === "yd") area *= 1.19599;
+    if (currentUnit === "brass") area *= 0.092903;
+
+    let totalArea = area * coats;
+    let liter = totalArea / coverage;
+    let cost = liter * price;
+
+    document.getElementById("rArea").innerText = area.toFixed(3);
+    document.getElementById("rLiter").innerText = liter.toFixed(2);
+    document.getElementById("rCost").innerText = cost.toFixed(2);
+
+    document.getElementById("rAreaUnit").innerText =
+      currentUnit === "m" ? "m²" :
+      currentUnit === "ft" ? "ft²" :
+      currentUnit === "yd" ? "yd²" : "brass";
+  }
+
+  function resetPaint() {
+    document.getElementById("rArea").innerText = "0";
+    document.getElementById("rLiter").innerText = "0";
+    document.getElementById("rCost").innerText = "0";
+  }
+</script>
 </body>
 </html>

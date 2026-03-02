@@ -1,24 +1,35 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculation of Tiles</title>
   <link rel="stylesheet" href="../style.css">
+
+  <style>
+    /* 👇 IMPORTANT FIX FOR SCROLL */
+    body {
+      min-height: 100vh;
+      overflow-y: auto;
+    }
+
+    main.main-content {
+      padding-bottom: 120px; /* space for unit switcher */
+    }
+  </style>
 </head>
 
 <body class="dark-theme">
 
 <header class="top-bar dark-header">
   <a class="back-btn" href="../index.html">&#8592;</a>
-
   <h1>Calculation of Tiles</h1>
-
 </header>
 
 <main class="main-content">
 
   <div class="title-card">
-    <span class="title-icon"></span>
     <span class="title-text">Calculation of Tiles</span>
   </div>
 
@@ -93,15 +104,14 @@
       <input type="number" id="tilePrice" value="0">
       <span class="unit-box">₹ / m²</span>
     </div>
-
   </div>
 
   <div class="divider"></div>
 
   <!-- BUTTONS -->
   <div class="action-row">
-    <button class="btn light"> Share</button>
-    <button class="btn primary" onclick="calculateTiles()"> Calculate</button>
+    <button class="btn light">Share</button>
+    <button class="btn primary" onclick="calculateTiles()">Calculate</button>
     <button class="btn light" onclick="resetTiles()">Reset</button>
   </div>
 
@@ -136,6 +146,7 @@
 
 </main>
 
+<!-- UNIT SWITCHER -->
 <div class="unit-switcher">
   <button onclick="setUnit('m')">meter</button>
   <button onclick="setUnit('ft')">foot</button>
@@ -144,5 +155,6 @@
 </div>
 
 <script src="tiles.js"></script>
+
 </body>
 </html>

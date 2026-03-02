@@ -1,102 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Circle Wall Bricks</title>
 
-  <!-- COMMON CSS -->
-  <link rel="stylesheet" href="../style.css">
+  <style>
+    body{
+      margin:0;
+      font-family:Arial, sans-serif;
+      background:#eef2f6;
+    }
+
+    /* ===== TOP BAR ===== */
+    .top-bar{
+      background:#16365d;
+      color:white;
+      padding:15px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      font-size:18px;
+      font-weight:bold;
+    }
+
+    .back-btn{
+      position:absolute;
+      left:15px;
+      color:white;
+      text-decoration:none;
+      font-size:20px;
+      cursor:pointer;
+    }
+
+    /* ===== MAIN ===== */
+    .main-content{
+      padding:15px;
+      padding-bottom:120px;
+    }
+
+    .form-card{
+      background:white;
+      padding:15px;
+      border-radius:10px;
+      margin-bottom:15px;
+    }
+
+    .section-label{
+      font-weight:bold;
+      margin-bottom:10px;
+      display:block;
+    }
+
+    input{
+      width:100%;
+      padding:8px;
+      margin-bottom:10px;
+      border-radius:6px;
+      border:1px solid #ccc;
+    }
+
+    .two-col{
+      display:flex;
+      gap:10px;
+    }
+
+    .three-col{
+      display:flex;
+      gap:10px;
+    }
+
+    .action-row{
+      display:flex;
+      justify-content:space-between;
+      margin:15px 0;
+    }
+
+    button{
+      padding:8px 12px;
+      border:none;
+      border-radius:6px;
+      background:#16365d;
+      color:white;
+      cursor:pointer;
+    }
+
+    .result-card{
+      background:white;
+      border-radius:10px;
+      padding:10px;
+    }
+
+    .result-header{
+      display:flex;
+      justify-content:space-between;
+      font-weight:bold;
+      border-bottom:1px solid #ddd;
+      padding-bottom:8px;
+    }
+
+    .result-row{
+      display:flex;
+      justify-content:space-between;
+      padding:8px 0;
+      border-bottom:1px solid #eee;
+    }
+
+    /* ===== UNIT SWITCHER ===== */
+    .unit-switcher{
+      position:fixed;
+      bottom:0;
+      left:0;
+      right:0;
+      background:#fff;
+      padding:10px;
+      display:flex;
+      justify-content:space-around;
+      box-shadow:0 -2px 10px rgba(0,0,0,0.1);
+    }
+
+    .unit-switcher button{
+      background:#16365d;
+      font-size:12px;
+    }
+
+    .unit-switcher button.active{
+      background:orange;
+    }
+  </style>
 </head>
 
-<body class="page-calculator">
+<body>
 
-<!-- ===== TOP BAR ===== -->
-<header class="top-bar dark">
-  <a href="javascript:history.back()" class="back-btn">←</a>
-
-
-  <h1>Bricks Calculator</h1>
-</header>
+<!-- ===== TOP BAR WITH BACK BUTTON ===== -->
+<div class="top-bar">
+  <span class="back-btn" onclick="goBack()">←</span>
+  Bricks Calculator
+</div>
 
 <main class="main-content">
 
-  <!-- ===== TITLE CARD ===== -->
-  <div class="title-card dark-outline">
-    <span class="title-icon">🧱</span>
-    <span class="title-text">Circle Wall Bricks</span>
-  </div>
-
-  <!-- ===== VOLUME INPUT ===== -->
   <div class="form-card">
-    <label class="section-label">Volume of Wall</label>
-
+    <label class="section-label">Wall Dimensions</label>
     <div class="two-col">
-      <div>
-        <label>Diameter (d)</label>
-        <input type="number" id="diameter" value="5">
-      </div>
-
-      <div>
-        <label>Height (h)</label>
-        <input type="number" id="height" value="5">
-      </div>
+      <input type="number" id="diameter" value="5" placeholder="Diameter (m)">
+      <input type="number" id="height" value="5" placeholder="Height (m)">
     </div>
-
-    <div class="input-with-unit">
-      <input type="number" id="thickness" value="0.23">
-      <span class="unit-box dark">m</span>
-    </div>
+    <input type="number" id="thickness" value="0.23" placeholder="Thickness (m)">
   </div>
 
-  <div class="divider"></div>
-
-  <!-- ===== BRICK DIMENSIONS ===== -->
   <div class="form-card">
-    <label class="section-label">Dimension of Brick</label>
-
+    <label class="section-label">Brick Dimensions (m)</label>
     <div class="three-col">
-      <input type="number" id="brickL" value="0.19" placeholder="Length (m)">
-      <input type="number" id="brickW" value="0.09" placeholder="Width (m)">
-      <input type="number" id="brickH" value="0.09" placeholder="Height (m)">
+      <input type="number" id="brickLength" value="0.19">
+      <input type="number" id="brickWidth" value="0.09">
+      <input type="number" id="brickHeight" value="0.09">
     </div>
   </div>
 
-  <div class="divider"></div>
-
-  <!-- ===== MORTAR ===== -->
   <div class="form-card">
-    <label class="section-label">Mortar Ratio and Quantity</label>
-
+    <label class="section-label">Mortar Ratio</label>
     <div class="three-col">
-      <input type="number" id="cementRatio" value="1" placeholder="Cement">
-      <input type="number" id="sandRatio" value="5" placeholder="Sand">
-      <input type="number" id="quantity" value="1" placeholder="Quantity">
+      <input type="number" id="cementRatio" value="1">
+      <input type="number" id="sandRatio" value="5">
+      <input type="number" id="quantity" value="1">
     </div>
   </div>
 
-  <div class="divider"></div>
-
-  <!-- ===== DEDUCTION ===== -->
   <div class="form-card">
-    <label class="section-label">Deduction Window / Door Area</label>
-
+    <label class="section-label">Deduction / Price</label>
     <div class="two-col">
-      <input type="number" id="deductArea" value="0" placeholder="Subtract Area (m²)">
-      <input type="number" id="brickPrice" value="0" placeholder="₹ / brick">
+      <input type="number" id="deductArea" value="0">
+      <input type="number" id="brickPrice" value="0">
     </div>
   </div>
 
-  <!-- ===== ACTION BUTTONS ===== -->
   <div class="action-row">
-    <button class="btn dark-outline">📤 Share</button>
-    <button class="btn dark" onclick="calculateCircleBricks()">🧮 Calculate</button>
-    <button class="btn dark-outline" onclick="resetResults()">🔄 Reset</button>
+    <button onclick="calculateCircleBricks()">Calculate</button>
+    <button onclick="resetResults()">Reset</button>
   </div>
 
-  <!-- ===== RESULTS ===== -->
   <div class="result-card">
-    <div class="result-header dark">
+    <div class="result-header">
       <span>Material</span>
       <span>Quantity</span>
       <span>Unit</span>
@@ -106,14 +192,88 @@
 
 </main>
 
-<!-- ===== UNIT SWITCH ===== -->
 <div class="unit-switcher">
-  <button onclick="setUnit('m')">meter</button>
-  <button onclick="setUnit('ft')">foot</button>
-  <button onclick="setUnit('yd')">yard</button>
-  <button onclick="setUnit('brass')">brass</button>
+  <button onclick="setUnit('m',this)" class="active">meter</button>
+  <button onclick="setUnit('ft',this)">foot</button>
+  <button onclick="setUnit('yd',this)">yard</button>
+  <button onclick="setUnit('brass',this)">brass</button>
 </div>
 
-<script src="bricks-circle.js"></script>
+<script>
+
+  let currentUnit="m";
+
+  /* ===== BACK BUTTON FUNCTION ===== */
+  function goBack(){
+    if(document.referrer){
+      window.history.back();
+    }else{
+      window.location.href="index.html";
+    }
+  }
+
+  function setUnit(u,btn){
+    currentUnit=u;
+    document.querySelectorAll(".unit-switcher button")
+    .forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    calculateCircleBricks();
+  }
+
+  function calculateCircleBricks(){
+
+    const d=parseFloat(document.getElementById("diameter").value)||0;
+    const h=parseFloat(document.getElementById("height").value)||0;
+    const t=parseFloat(document.getElementById("thickness").value)||0;
+
+    const brickL=parseFloat(document.getElementById("brickLength").value)||0;
+    const brickW=parseFloat(document.getElementById("brickWidth").value)||0;
+    const brickH=parseFloat(document.getElementById("brickHeight").value)||0;
+
+    const cementRatio=parseFloat(document.getElementById("cementRatio").value)||1;
+    const sandRatio=parseFloat(document.getElementById("sandRatio").value)||5;
+    const brickPrice=parseFloat(document.getElementById("brickPrice").value)||0;
+
+    if(!d||!h||!t)return;
+
+    let volume=Math.PI*h*((d/2)**2-((d/2)-t)**2);
+
+    if(currentUnit==="ft") volume*=35.3147;
+    if(currentUnit==="yd") volume*=1.30795;
+    if(currentUnit==="brass") volume*=0.3531;
+
+    const brickVolume=brickL*brickW*brickH;
+    const bricks=brickVolume>0?volume/brickVolume:0;
+    const cost=bricks*brickPrice;
+
+    const dryMortar=volume*0.30;
+    const totalRatio=cementRatio+sandRatio;
+    const cement=dryMortar*(cementRatio/totalRatio);
+    const sand=dryMortar*(sandRatio/totalRatio);
+    const cementBags=(cement*1440)/50;
+
+    const unitLabel=currentUnit==="m"?"m³":
+                    currentUnit==="ft"?"ft³":
+                    currentUnit==="yd"?"yd³":"brass";
+
+    const rows=`
+    <div class="result-row"><span>Wall Volume</span><span>${volume.toFixed(3)}</span><span>${unitLabel}</span></div>
+    <div class="result-row"><span>Number of Bricks</span><span>${Math.ceil(bricks)}</span><span>bricks</span></div>
+    <div class="result-row"><span>Bricks Cost</span><span>${cost.toFixed(2)}</span><span>₹</span></div>
+    <div class="result-row"><span>Dry Mortar</span><span>${dryMortar.toFixed(3)}</span><span>${unitLabel}</span></div>
+    <div class="result-row"><span>Cement</span><span>${cement.toFixed(3)}</span><span>${unitLabel}</span></div>
+    <div class="result-row"><span>Sand</span><span>${sand.toFixed(3)}</span><span>${unitLabel}</span></div>
+    <div class="result-row"><span>Cement Bags</span><span>${cementBags.toFixed(2)}</span><span>bags</span></div>
+    `;
+
+    document.getElementById("resultRows").innerHTML=rows;
+  }
+
+  function resetResults(){
+    document.getElementById("resultRows").innerHTML="";
+  }
+
+</script>
+
 </body>
 </html>

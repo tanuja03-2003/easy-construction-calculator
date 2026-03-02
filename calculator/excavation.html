@@ -5,17 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculation of Bed Excavation</title>
   <link rel="stylesheet" href="../style.css" />
+
+  <style>
+    /* ✅ FIX FOR SCROLL ISSUE */
+    body {
+      min-height: 100vh;
+      overflow-y: auto;
+    }
+
+    .container {
+      padding-bottom: 130px; /* space for fixed unit switcher */
+    }
+
+    .result-card {
+      margin-bottom: 20px;
+    }
+  </style>
 </head>
 
 <body>
 
 <div class="container">
 
+  <!-- TOP BAR -->
   <div class="top-bar">
     <a class="back-btn" href="../index.html">←</a>
     <h1>Calculation of Bed Excavation</h1>
   </div>
 
+  <!-- INPUT CARD -->
   <div class="card">
 
     <h3>Dimensions of Ground :</h3>
@@ -63,6 +81,7 @@
 
   </div>
 
+  <!-- RESULT -->
   <div class="result-card">
 
     <table>
@@ -96,6 +115,7 @@
 
 </div>
 
+<!-- UNIT SWITCHER -->
 <div class="unit-switcher">
   <button onclick="setUnit('meter')">meter</button>
   <button onclick="setUnit('foot')">foot</button>
